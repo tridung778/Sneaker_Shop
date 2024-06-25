@@ -10,7 +10,7 @@ public class TestController {
 
     @RequestMapping("")
     public String index(Model model) {
-        model.addAttribute("message", "Dung!");
+        model.addAttribute("message", "An!");
         return "index";
     }
 }
