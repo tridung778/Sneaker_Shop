@@ -1,0 +1,18 @@
+[
+  {
+    "userName": "user",
+    "fullName": "Duong Tri Dung",
+    "email": "dung@gmail.com",
+    "password": "123",
+    "phone": "0343285405",
+    "role": "USER"
+  },
+  {
+    "userName": "admin",
+    "fullName": "Hoang Xuan Luong",
+    "email": "luong@gmail.com",
+    "password": "456",
+    "phone": "0123456789",
+    "role": "ADMIN"
+  }
+]
