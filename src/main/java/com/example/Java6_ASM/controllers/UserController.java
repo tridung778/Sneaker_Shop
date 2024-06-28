@@ -18,6 +18,6 @@ public class UserController {
     @GetMapping("")
     public String getAllUser(Model model) {
         model.addAttribute("users", userService.getAllUser());
-        return "user/index";
+        return "user/user-index";
     }
 }

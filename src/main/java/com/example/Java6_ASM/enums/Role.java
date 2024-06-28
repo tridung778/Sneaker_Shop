@@ -2,5 +2,6 @@ package com.example.Java6_ASM.enums;
 
 public enum Role {
     USER,
-    ADMIN
+    ADMIN,
+    SUPER_USER
 }

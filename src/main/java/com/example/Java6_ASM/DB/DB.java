@@ -21,6 +21,8 @@ public class DB {
         return args -> {
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+            // Thêm user từ file user.json vào database
             String pathToUsers = "src\\main\\java\\com\\example\\Java6_ASM\\API\\user.json";
             TypeReference<List<User>> typeReference = new TypeReference<>() {
             };
@@ -30,6 +32,8 @@ public class DB {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+
         };
     }
 }
