@@ -25,4 +25,16 @@ Ví dụ muốn vào branch dung_branch:
 ```bash
 git checkout -b dung_branch
 ```
+> ##### Quy trình push 1 commit bằng brach của mình
+> ```bash
+> git add .
+> 
+> git commit -m "commit message"
+> 
+> git push origin dung_branch
+> ```
 
+> ##### Cách đồng bộ code của mình với nhánh main
+> ```bash
+> git pull origin main
+> ```
