@@ -8,7 +8,7 @@
     "role": "USER"
   },
   {
-    "userName": "admin",
+    "userName": "luong",
     "fullName": "Hoang Xuan Luong",
     "email": "luong@gmail.com",
     "password": "456",
@@ -16,9 +16,17 @@
     "role": "ADMIN"
   },
   {
-    "userName": "admin",
+    "userName": "tri",
     "fullName": "Vu Cao Tri",
     "email": "tri@gmail.com",
+    "password": "456",
+    "phone": "34345345",
+    "role": "ADMIN"
+  },
+  {
+    "userName": "an",
+    "fullName": "Pham Thanh An",
+    "email": "an@gmail.com",
     "password": "456",
     "phone": "34345345",
     "role": "ADMIN"
