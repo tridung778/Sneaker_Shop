@@ -19,7 +19,8 @@ Enum Variable ( Screaming Snake Case ) example: SUPER_USER
 Mỗi người có 1 branch riêng ví dụ: dung_brach
 
 Các vào branch của mình
-ví dụ muốn vào nhánh dung_branch:
+
+Ví dụ muốn vào branch dung_branch:
 
 ```bash
 git checkout -b dung_branch
