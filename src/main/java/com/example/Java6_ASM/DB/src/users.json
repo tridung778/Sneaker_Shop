@@ -14,5 +14,13 @@
     "password": "456",
     "phone": "0123456789",
     "role": "ADMIN"
+  },
+  {
+    "userName": "admin",
+    "fullName": "Vu Cao Tri",
+    "email": "tri@gmail.com",
+    "password": "456",
+    "phone": "34345345",
+    "role": "ADMIN"
   }
 ]
