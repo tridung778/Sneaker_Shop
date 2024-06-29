@@ -22,8 +22,8 @@ public class DB {
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-            // Thêm user từ file user.json vào database
-            String pathToUsers = "src\\main\\java\\com\\example\\Java6_ASM\\DB\\src\\user.json";
+            // Thêm user từ file users.json vào database
+            String pathToUsers = "src\\main\\java\\com\\example\\Java6_ASM\\DB\\src\\users.json";
             TypeReference<List<User>> typeReference = new TypeReference<>() {
             };
             try {
