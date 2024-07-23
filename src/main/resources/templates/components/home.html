@@ -1,6 +1,286 @@
-<div class="d-flex align-items-center justify-content-center">
-    <h1>
-        <span th:text="${message}"></span>
-        <i class="fa-duotone fa-poo text-warning"></i>
-    </h1>
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg p-3 d-flex justify-content-center ">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center">
+            <button class="navbar-toggler btn_drop border " type=" button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="bi bi-list btn_drop" style="font-size: 35px;"></i>
+            </button>
+            <div class="d-flex d-lg-none d-block ms-4">
+                <div>
+                    <input class="rounded-start lh-lg border-white p-2" type="search" placeholder="Tìm kiếm..."
+                           style="outline: none; width: 200px; height: 40px"/>
+                </div>
+                <a href="#" class="btn_Search text-white d-flex align-items-center rounded-end">
+                    <i class=" bi bi-search my-4 mx-3"></i>
+                </a>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse w-100" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex gap-5 justify-content-center w-100">
+                <li class="nav-item mt-3 mt-lg-0 ">
+                    <a href="#" class="text-white text-decoration-none fw-medium pb-1 nav_btn">TRANG
+                        CHỦ</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="text-white text-decoration-none fw-medium pb-1 nav_btn">GIỚI THIỆU</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="text-white text-decoration-none fw-medium pb-1 nav_btn">GIÀY NAM</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="text-white text-decoration-none fw-medium pb-1 nav_btn">GIÀY NỮ</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="text-white text-decoration-none fw-medium pb-1 nav_btn">BLOGS</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="text-white text-decoration-none fw-medium pb-1 nav_btn">LIÊN HỆ</a>
+                </li>
+                <li class="nav-item d-lg-none d-block">
+                    <a href="#" class="text-white text-decoration-none fw-medium pb-1 nav_btn">ĐĂNG NHẬP</a>
+                </li>
+                <li class="nav-item d-lg-none d-block">
+                    <a href="#" class="text-white text-decoration-none fw-medium pb-1 nav_btn">ĐĂNG KÝ</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- carousel -->
+<div class="banner_home">
+    <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="carousel-item">
+                <div class="position-relative">
+                    <div class="text_box position-absolute">
+                        <h4 class="fs-4 fw-bold text-white m-0">HXLuong Sneaker</h4>
+                        <h1 class="text-white fw-bold lh-sm py-2" style="font-size: 3.5em;">Giày ADIDAS</h1>
+                        <p class="text-white lh-sm mb-4 d-none d-sm-block">Cùng với sự phát triển không ngừng
+                            của thời trang
+                            thế
+                            giới,
+                            rất nhiều thương hiệu cho ra đời những mẫu giày nam chính hãng đa dạng về phong
+                            cách,
+                            kiểu dáng, màu sắc, kích cỡ…</p>
+                        <a class="text-white border rounded-1 text-decoration-none fw-bold" href="">XEM
+                            SẢN PHẨM</a>
+                    </div>
+                    <img class="object-fit-cover" src="./images/slide-2.jpg" width="100%" height="100%" alt="">
+                </div>
+            </div>
+            <div class="carousel-item active">
+                <div class="position-relative">
+                    <div class="text_box position-absolute">
+                        <h4 class="fs-4 fw-bold text-white m-0">HXLuong Sneaker</h4>
+                        <h1 class="text-white fw-bold lh-sm py-2" style="font-size: 3.5em;">Giày Converse</h1>
+                        <p class="text-white lh-sm mb-4 d-none d-sm-block">Chào mừng bạn đến với ngôi nhà
+                            Converse! Tại đây, mỗi
+                            một dòng chữ, mỗi chi tiết và hình ảnh đều là những bằng chứng mang dấu ấn lịch sử
+                            Converse 100 năm, và đang không ngừng phát triển lớn mạnh. </p>
+                        <a class="text-white border rounded-1 text-decoration-none fw-bold" href="">XEM
+                            SẢN PHẨM</a>
+                    </div>
+                    <img class="object-fit-cover" src="./images/slide-1.jpg" width="100%" height="100%" alt="">
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<!-- banner -->
+<div class="container mt-4">
+    <div class="d-lg-flex banner_row">
+        <div class="banner_content overflow-hidden mx-lg-4">
+            <a href="/category">
+                <div class="position-relative">
+                    <div class="position-absolute text-white banner_text z-1 end-50">
+                        <h3 class="fs-4">Xu hướng 2024</h3>
+                        <h2 class="fw-bold fs-1 lh-base">GIÀY NAM</h2>
+                    </div>
+                </div>
+                <img src="./images/slide-3.jpg" class="object-fit-cover" width="600px" height="300px" alt="">
+            </a>
+        </div>
+        <div class="banner_content overflow-hidden mx-lg-4">
+            <a href="#">
+                <div class="position-relative">
+                    <div class="position-absolute text-white banner_text z-1 ">
+                        <h3 class="fs-4">Xu hướng 2024</h3>
+                        <h2 class="fw-bold fs-1 lh-base">GIÀY NỮ</h2>
+                    </div>
+                </div>
+                <img src="./images/slide-4.jpg" class="object-fit-cover" width="600px" height="300px" alt="">
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- tiêu đề -->
+<div class="container mt-4">
+    <div class="border-2 border-bottom border-dark pb-2 fs-5 fw-bold d-flex justify-content-center">SẢN PHẨM MỚI
+    </div>
+</div>
+
+<!-- Sản phẩm -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-6 mb-4">
+            <div class="border rounded">
+                <div class="p-2">
+                    <a href="/detail"><img src="./images/sp1.webp" width="100%" height="100%" alt=""></a>
+                </div>
+                <div class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
+                    <a class="text-black text-decoration-none fw-bold px-2" href="#">
+                        Air Jordan 1 Retro High Og ‘Shadow 2.0’
+                    </a>
+                    <div class="lh-lg pb-3">
+                        <span class="fw-bold text-danger">1,289,000₫</span>
+                    </div>
+                    <a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm vào giỏ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-6 mb-4">
+            <div class="border rounded">
+                <div class="p-2">
+                    <a href="#"><img src="./images/sp1.webp" width="100%" height="100%" alt=""></a>
+                </div>
+                <div class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
+                    <a class="text-black text-decoration-none fw-bold px-2" href="#">
+                        Air Jordan 1 Retro High Og ‘Shadow 2.0’
+                    </a>
+                    <div class="lh-lg pb-3">
+                        <span class="fw-bold text-danger">1,289,000₫</span>
+                    </div>
+                    <a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm vào giỏ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-6 mb-4">
+            <div class="border rounded">
+                <div class="p-2">
+                    <a href="#"><img src="./images/sp1.webp" width="100%" height="100%" alt=""></a>
+                </div>
+                <div class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
+                    <a class="text-black text-decoration-none fw-bold px-2" href="#">
+                        Air Jordan 1 Retro High Og ‘Shadow 2.0’
+                    </a>
+                    <div class="lh-lg pb-3">
+                        <span class="fw-bold text-danger">1,289,000₫</span>
+                    </div>
+                    <a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm vào giỏ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-6 mb-4">
+            <div class="border rounded">
+                <div class="p-2">
+                    <a href="#"><img src="./images/sp1.webp" width="100%" height="100%" alt=""></a>
+                </div>
+                <div class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
+                    <a class="text-black text-decoration-none fw-bold px-2" href="#">
+                        Air Jordan 1 Retro High Og ‘Shadow 2.0’
+                    </a>
+                    <div class="lh-lg pb-3">
+                        <span class="fw-bold text-danger">1,289,000₫</span>
+                    </div>
+                    <a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm vào giỏ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- tiêu đề -->
+<div class="container mt-4">
+    <div class="border-2 border-bottom border-dark pb-2 fs-5 fw-bold d-flex justify-content-center">SẢN PHẨM BÁN
+        CHẠY
+    </div>
+</div>
+
+<!-- Sản phẩm -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-6 mb-4">
+            <div class="border rounded">
+                <div class="p-2">
+                    <a href="#"><img src="./images/sp1.webp" width="100%" height="100%" alt=""></a>
+                </div>
+                <div class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
+                    <a class="text-black text-decoration-none fw-bold px-2" href="#">
+                        Air Jordan 1 Retro High Og ‘Shadow 2.0’
+                    </a>
+                    <div class="lh-lg pb-3">
+                        <span class="fw-bold text-danger">1,289,000₫</span>
+                    </div>
+                    <a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm vào giỏ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-6 mb-4">
+            <div class="border rounded">
+                <div class="p-2">
+                    <a href="#"><img src="./images/sp1.webp" width="100%" height="100%" alt=""></a>
+                </div>
+                <div class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
+                    <a class="text-black text-decoration-none fw-bold px-2" href="#">
+                        Air Jordan 1 Retro High Og ‘Shadow 2.0’
+                    </a>
+                    <div class="lh-lg pb-3">
+                        <span class="fw-bold text-danger">1,289,000₫</span>
+                    </div>
+                    <a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm vào giỏ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-6 mb-4">
+            <div class="border rounded">
+                <div class="p-2">
+                    <a href="#"><img src="./images/sp1.webp" width="100%" height="100%" alt=""></a>
+                </div>
+                <div class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
+                    <a class="text-black text-decoration-none fw-bold px-2" href="#">
+                        Air Jordan 1 Retro High Og ‘Shadow 2.0’
+                    </a>
+                    <div class="lh-lg pb-3">
+                        <span class="fw-bold text-danger">1,289,000₫</span>
+                    </div>
+                    <a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm vào giỏ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-6 mb-4">
+            <div class="border rounded">
+                <div class="p-2">
+                    <a href="#"><img src="./images/sp1.webp" width="100%" height="100%" alt=""></a>
+                </div>
+                <div class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
+                    <a class="text-black text-decoration-none fw-bold px-2" href="#">
+                        Air Jordan 1 Retro High Og ‘Shadow 2.0’
+                    </a>
+                    <div class="lh-lg pb-3">
+                        <span class="fw-bold text-danger">1,289,000₫</span>
+                    </div>
+                    <a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm vào giỏ</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
