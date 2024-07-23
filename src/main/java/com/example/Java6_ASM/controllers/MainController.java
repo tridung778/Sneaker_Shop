@@ -8,9 +8,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 
-    @RequestMapping("")
+    @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("message", "Home!");
+        model.addAttribute("page", "components/home");
+        return "index";
+    }
+
+    @RequestMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("page", "login/login");
+        return "index";
+    }
+
+    @RequestMapping("/signup")
+    public String signup(Model model) {
+        model.addAttribute("page", "login/signup");
+        return "index";
+    }
+
+    @RequestMapping("/category")
+    public String productCategory(Model model) {
+        model.addAttribute("page", "product/product-category");
+        return "index";
+    }
+
+    @RequestMapping("/detail")
+    public String productDetail(Model model) {
+        model.addAttribute("page", "product/product-detail");
         return "index";
     }
 }
