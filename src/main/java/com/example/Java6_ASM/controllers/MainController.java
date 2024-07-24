@@ -13,6 +13,11 @@ public class MainController {
         model.addAttribute("page", "components/home");
         return "index";
     }
+    @RequestMapping("/admin")
+    public String admin(Model model) {
+        model.addAttribute("page", "admin-index");
+        return "admin-index";
+    }
 
     @RequestMapping("/login")
     public String login(Model model) {
