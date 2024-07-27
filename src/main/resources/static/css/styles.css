@@ -4,7 +4,7 @@
 
 body {
     margin: 0;
-    background-image: url("bg.jpg");
+    background-image: url("logo.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50%;
@@ -31,8 +31,8 @@ button {
     width: 260px;
     border-radius: 16px;
     padding: 0 16px;
-    border: 1px solid rgb(255 255 255 / 8%);
-    background: rgb(0 0 0 / 40%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(20px);
     transition: width 0.4s;
 }
@@ -42,7 +42,7 @@ button {
     align-items: center;
     height: 72px;
     padding: 0 1.25rem 0 0;
-    border-bottom: 1px solid rgb(255 255 255 / 8%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .sidebar header button {
@@ -66,15 +66,16 @@ button {
     font-weight: 400;
     line-height: 1;
     padding: 0 16px;
-    color: rgb(255 255 255 / 95%);
+    color: rgba(255, 255, 255, 0.95);
 }
 
 .sidebar button p:nth-child(2) {
     flex: 1 1 auto;
+    transition: opacity 0.3s, transform 0.3s;
 }
 
 .sidebar button:is(.active, :hover) {
-    background: rgb(0 0 0 / 30%);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .sidebar button i {
@@ -82,11 +83,11 @@ button {
 }
 
 .sidebar button.active > i:nth-child(3) {
-    rotate: -180deg;
+    transform: rotate(-180deg);
 }
 
 .sidebar button:not(.active):hover {
-    background: rgb(0 0 0 / 10%);
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .sidebar ul {
@@ -101,7 +102,7 @@ button {
     position: relative;
     overflow: hidden;
     height: 0;
-    transition: 0.5s;
+    transition: height 0.5s;
 }
 
 .sub-menu ul {
@@ -120,11 +121,11 @@ button {
     position: absolute;
     top: 50%;
     left: 24px;
-    translate: 0 -50%;
+    transform: translateY(-50%);
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background-color: rgb(255 255 255 / 35%);
+    background-color: rgba(255, 255, 255, 0.35);
 }
 
 .sidebar .material-symbols-outlined {
@@ -136,4 +137,28 @@ button {
     width: 20px;
     max-width: 20px;
     min-width: 20px;
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+.sidebar.collapsed p {
+    opacity: 0;
+    transform: translateX(-100%);
+    pointer-events: none;
+}
+
+.sidebar.collapsed .sub-menu {
+    display: none;
+}
+
+.sidebar.collapsed button {
+    justify-content: center;
+}
+
+.sidebar button:hover p {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
 }
