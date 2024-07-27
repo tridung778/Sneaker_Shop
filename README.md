@@ -23,7 +23,7 @@ Các vào branch của mình
 Ví dụ muốn vào branch dung_branch:
 
 ```bash
-git checkout dung_branch
+git checkout dung_branch 
 ```
 > ##### Quy trình push 1 commit bằng brach của mình
 > ```bash
