@@ -1,0 +1,134 @@
+[
+  {
+    "name": "Adidas Stan Smith Fairway",
+    "image": "IMG_2217-2.jpg",
+    "price": 775000,
+    "quantity": 10,
+    "description": "Description",
+    "available": true,
+    "category": {
+      "name": "Giày Adidas"
+    }
+  },
+  {
+    "name": "Adidas Alphabounce Beyond Cloud White",
+    "image": "IMG_1025-1.jpg",
+    "price": 1195000,
+    "quantity": 10,
+    "description": "Description",
+    "available": true,
+    "category": {
+      "name": "Giày Adidas"
+    }
+  },
+  {
+    "name": "Adidas Superstar Running White",
+    "image": "IMG_2215-2.jpg",
+    "price": 775000,
+    "quantity": 10,
+    "description": "Description",
+    "available": true,
+    "category": {
+      "name": "Giày Adidas"
+    }
+  },
+  {
+    "name": "Adidas Prophere Grey Solar Red",
+    "image": "IMG_2211-2.jpg",
+    "price": 388500,
+    "quantity": 10,
+    "description": "Description",
+    "available": true,
+    "category": {
+      "name": "Giày Adidas"
+    }
+  },
+  {
+    "name": "Adidas NMD R1 Grey",
+    "image": "IMG_2223.jpg",
+    "price": 448500,
+    "quantity": 10,
+    "description": "Description",
+    "available": true,
+    "category": {
+      "name": "Giày Adidas"
+    }
+  },
+  {
+    "name": "Adidas Stan Smith Triple White",
+    "image": "thoi-trang-vintage.jpg",
+    "price": 775000,
+    "quantity": 10,
+    "description": "Description",
+    "available": true,
+    "category": {
+      "name": "Giày Adidas"
+    }
+  },
+  {
+    "name": "Adidas Alphabounce Beyond Grey",
+    "image": "IMG_90221.jpg",
+    "price": 1095000,
+    "quantity": 10,
+    "description": "Description",
+    "available": true,
+    "category": {
+      "name": "Giày Adidas"
+    }
+  },
+  {
+    "name": "Adidas Alphabounce Beyond Black",
+    "image": "alphabounce-beyond-black.jpg",
+    "price": 1095000,
+    "quantity": 10,
+    "description": "Description",
+    "available": true,
+    "category": {
+      "name": "Giày Adidas"
+    }
+  },
+  {
+    "name": "Adidas Alphabounce Beyond Dark Grey",
+    "image": "18-1024x1024-scaled.jpg",
+    "price": 1045000,
+    "quantity": 10,
+    "description": "Description",
+    "available": true,
+    "category": {
+      "name": "Giày Adidas"
+    }
+  },
+  {
+    "name": "Adidas Ultra Boost 4.0 Grey Three",
+    "image": "IMG_5497-1.jpg",
+    "price": 745000,
+    "quantity": 10,
+    "description": "Description",
+    "available": true,
+    "category": {
+      "name": "Giày Adidas"
+    }
+  },
+  {
+    "name": "Yeezy 700 V2 Static",
+    "image": "Untitled-design-2.jpg",
+    "price": 388500,
+    "quantity": 10,
+    "description": "Description",
+    "available": true,
+    "category": {
+      "name": "Giày Yeezy"
+    }
+  },
+  {
+    "name": "Yeezy Boost 700 Inertia",
+    "image": "giay-choi-bong-ro.jpg",
+    "price": 388500,
+    "quantity": 10,
+    "description": "Description",
+    "available": true,
+    "category": {
+      "name": "Giày Yeezy"
+    }
+  }
+]

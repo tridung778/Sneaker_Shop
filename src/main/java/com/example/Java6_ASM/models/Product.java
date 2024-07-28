@@ -19,9 +19,11 @@ public class Product extends BaseModel {
     String name;
     String image;
     Double price;
+    int quantity;
+    String description;
     @Temporal(TemporalType.DATE)
     @Column(name = "created_at")
-    Date createdAt;
+    Date createdAt = new Date();
     boolean available;
     @ManyToOne
     @JoinColumn(name = "category_id")
