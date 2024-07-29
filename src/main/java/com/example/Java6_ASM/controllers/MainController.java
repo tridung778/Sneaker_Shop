@@ -22,13 +22,13 @@ public class MainController {
     @RequestMapping("/login")
     public String login(Model model) {
         model.addAttribute("page", "login/login");
-        return "index";
+        return "login/login";
     }
 
     @RequestMapping("/signup")
     public String signup(Model model) {
         model.addAttribute("page", "login/signup");
-        return "index";
+        return "login/signup";
     }
 
     @RequestMapping("/category")
@@ -40,6 +40,12 @@ public class MainController {
     @RequestMapping("/detail")
     public String productDetail(Model model) {
         model.addAttribute("page", "product/product-detail");
+        return "index";
+    }
+    
+    @RequestMapping("/cart-index")
+    public String cart(Model model) {
+        model.addAttribute("page", "cart/cart-index");
         return "index";
     }
 }
