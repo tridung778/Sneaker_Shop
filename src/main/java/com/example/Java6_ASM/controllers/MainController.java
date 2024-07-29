@@ -16,6 +16,7 @@ public class MainController {
 
     @RequestMapping("/admin")
     public String admin(Model model) {
+        model.addAttribute("addProduct", "admin/home.html");
         return "admin-index";
     }
 
