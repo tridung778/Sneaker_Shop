@@ -3,7 +3,7 @@ package com.example.Java6_ASM.models;
 import com.example.Java6_ASM.enums.OrderStatus;
 import com.example.Java6_ASM.enums.PaymentMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
