@@ -2,10 +2,8 @@ package com.example.Java6_ASM.models;
 
 
 import com.example.Java6_ASM.enums.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
