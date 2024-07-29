@@ -1,118 +1,70 @@
 <!-- Sản phẩm -->
-<div class="container">
-    <div class="row mt-4">
-        <div class="col-lg-6 d-flex justify-content-center mt-3 pe-lg-0">
-            <a href="../images/sp1.webp"><img src="../images/sp1.webp" alt="" width="100%"
-                                             class="border rounded px-5"></a>
-        </div>
-        <div class="col-lg-6 col-sm-12 mt-3 ps-lg-0">
-            <h3 class="fs-3 fw-bold">Air Jordan 1 Retro High Og ‘Shadow 2.0’</h3>
-            <div>
-                <h4 class="btn_drop mt-3 fw-bold">
-                        <span class="fw-bold text-danger">
-                            1,289,000₫
-                        </span>
-                </h4>
-            </div>
-            <ul class="ps-3 py-3 d-none d-sm-block">
-                <li>Sản phẩm nhập khẩu chính hãng.</li>
-                <li>Vận chuyển miễn phí toàn quốc.</li>
-                <li>Giao hàng trong ngày.</li>
-                <li>Thanh toán sau khi nhận hàng.</li>
-                <li>Bảo hành 5 năm tại Công ty.</li>
-                <li>Bảo hành chính hãng toàn cầu.</li>
-            </ul>
-            <div class="d-flex mt-3">
-                <a class="border text-dark text-decoration-none px-2" href="">-</a>
-                <input class="border text-center" min="1" value="1" type="number">
-                <a class="border text-dark text-decoration-none px-2" href="">+</a>
-            </div>
-            <div class="mt-4 float-lg-start text-center">
-                <a href="" class="btn btn-outline-danger btn py-1 me-1" style="width: 250px;">
-                    <i class="bi bi-cart-plus"></i> <br>
-                    <p class="fs-6 fw-bold m-0">Thêm vào giỏ</p>
-                </a>
-            </div>
-        </div>
-    </div>
+<div class="container" th:object="${item}">
+	<div class="row mt-4">
+		<div class="col-lg-6 d-flex justify-content-center mt-3 pe-lg-0">
+			<a th:href="@{|/images/*{image}|}"><img
+				th:src="@{|/images/*{image}|}" alt="" width="550px" height="430px"
+				class="border rounded px-5"></a>
+		</div>
+		<div class="col-lg-6 col-sm-12 mt-3 ps-lg-0">
+			<h3 class="fs-3 fw-bold" th:text="*{name}"></h3>
+			<div>
+				<h4 class="btn_drop mt-3 fw-bold">
+					<span class="fw-bold text-danger" th:text="*{price}"> </span>
+				</h4>
+			</div>
+			<ul class="ps-3 py-3 d-none d-sm-block">
+				<li>Sản phẩm nhập khẩu chính hãng.</li>
+				<li>Vận chuyển miễn phí toàn quốc.</li>
+				<li>Giao hàng trong ngày.</li>
+				<li>Thanh toán sau khi nhận hàng.</li>
+				<li>Bảo hành 5 năm tại Công ty.</li>
+				<li>Bảo hành chính hãng toàn cầu.</li>
+			</ul>
+			<div class="d-flex mt-3">
+				<a class="border text-dark text-decoration-none px-2" href="">-</a>
+				<input class="border text-center" min="1" value="1" type="number">
+				<a class="border text-dark text-decoration-none px-2" href="">+</a>
+			</div>
+			<div class="mt-4 float-lg-start text-center">
+				<a href="" class="btn btn-outline-danger btn py-1 me-1"
+					style="width: 250px;"> <i class="bi bi-cart-plus"></i> <br>
+					<p class="fs-6 fw-bold m-0">Thêm vào giỏ</p>
+				</a>
+			</div>
+		</div>
+	</div>
 
-    <!-- Sản phẩm liên quan -->
-    <div class="container mt-5">
-        <div class="position-relative mb-3">
-            <h2 class="pb-2 border-bottom border-danger">
-                <a href="#"
-                   class="text-white bg-danger rounded-top p-2 d-inline fw-bold fs-4 text-decoration-none">Sản
-                    Phẩm Liên Quan</a>
-            </h2>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-6 mb-4">
-                <div class="border rounded">
-                    <div class="p-2">
-                        <a href="#"><img src="../images/sp1.webp" width="100%" height="100%" alt=""></a>
-                    </div>
-                    <div class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
-                        <a class="text-black text-decoration-none fw-bold px-2" href="#">
-                            Air Jordan 1 Retro High Og ‘Shadow 2.0’
-                        </a>
-                        <div class="lh-lg pb-3">
-                            <span class="fw-bold text-danger">1,289,000₫</span>
-                        </div>
-                        <a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm vào giỏ</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-6 mb-4">
-                <div class="border rounded">
-                    <div class="p-2">
-                        <a href="#"><img src="../images/sp1.webp" width="100%" height="100%" alt=""></a>
-                    </div>
-                    <div class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
-                        <a class="text-black text-decoration-none fw-bold px-2" href="#">
-                            Air Jordan 1 Retro High Og ‘Shadow 2.0’
-                        </a>
-                        <div class="lh-lg pb-3">
-                            <span class="fw-bold text-danger">1,289,000₫</span>
-                        </div>
-                        <a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm vào giỏ</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-6 mb-4">
-                <div class="border rounded">
-                    <div class="p-2">
-                        <a href="#"><img src="../images/sp1.webp" width="100%" height="100%" alt=""></a>
-                    </div>
-                    <div class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
-                        <a class="text-black text-decoration-none fw-bold px-2" href="#">
-                            Air Jordan 1 Retro High Og ‘Shadow 2.0’
-                        </a>
-                        <div class="lh-lg pb-3">
-                            <span class="fw-bold text-danger">1,289,000₫</span>
-                        </div>
-                        <a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm vào giỏ</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-6 mb-4">
-                <div class="border rounded">
-                    <div class="p-2">
-                        <a href="#"><img src="../images/sp1.webp" width="100%" height="100%" alt=""></a>
-                    </div>
-                    <div class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
-                        <a class="text-black text-decoration-none fw-bold px-2" href="#">
-                            Air Jordan 1 Retro High Og ‘Shadow 2.0’
-                        </a>
-                        <div class="lh-lg pb-3">
-                            <span class="fw-bold text-danger">1,289,000₫</span>
-                        </div>
-                        <a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm vào giỏ</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<!-- Sản phẩm liên quan -->
+	<div class="container mt-5">
+		<div class="position-relative mb-3">
+			<h2 class="pb-2 border-bottom border-danger">
+				<a href="#"
+					class="text-white bg-danger rounded-top p-2 d-inline fw-bold fs-4 text-decoration-none">Sản
+					Phẩm Liên Quan</a>
+			</h2>
+		</div>
+		<div class="row">
+			<div class="col-lg-3 col-md-4 col-6 mb-4"
+				th:each="p:*{category.products}">
+				<div class="border rounded">
+					<div class="p-2">
+						<a th:href="@{|/detail/${p.id}|}"><img
+							th:src="@{|/images/${p.image}|}" width="100%" height="100%"
+							alt=""></a>
+					</div>
+					<div
+						class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
+						<a class="text-black text-decoration-none fw-bold px-2"
+							th:href="@{|/detail/${p.id}|}" th:text="${p.name}"></a>
+						<div class="lh-lg pb-3">
+							<span class="fw-bold text-danger" th:text="${p.price}"></span>
+						</div>
+						<a class="text-decoration-none p-2 btn btn-outline-danger"
+							href="#">Thêm vào giỏ</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
