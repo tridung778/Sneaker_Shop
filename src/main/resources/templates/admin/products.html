@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Management</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>Product Management</h1>
+    <a class="btn btn-primary" th:href="@{/admin/addProduct}">Add Product</a>
+    <table class="table mt-3">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Hình ảnh</th>
+            <th>Description</th>
+            <th>Actions</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Product Name</td>
+            <td>Product Price</td>
+            <td>Image</td>
+            <td>Product Description</td>
+            <td>
+                <a class="btn btn-secondary">Edit</a>
+                <a class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,9 +1,7 @@
 package com.example.Java6_ASM.controllers;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
+import com.example.Java6_ASM.models.Product;
+import com.example.Java6_ASM.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.Java6_ASM.models.Product;
-import com.example.Java6_ASM.services.ProductService;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class MainController {
@@ -32,7 +31,7 @@ public class MainController {
 		return "index";
 	}
 
-	@RequestMapping("/detail/{id}")
+	@RequestMapping("/{id}")
 	public String productDetail(Model model, @PathVariable("id") UUID id) {
 		Optional<Product> item = productService.findById(id);
 		model.addAttribute("item", item.orElse(null));
@@ -41,9 +40,10 @@ public class MainController {
 	}
 
 	@RequestMapping("/admin")
-	public String admin(Model model) {
-		return "admin-index";
-	}
+    public String admin(Model model) {
+        model.addAttribute("addProduct", "admin/home.html");
+        return "admin-index";
+    }
 
 	@RequestMapping("/login")
 	public String login(Model model) {

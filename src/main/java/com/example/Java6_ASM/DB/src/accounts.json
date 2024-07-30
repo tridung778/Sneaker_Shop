@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Duong Tri Dung",
+    "username": "user",
+    "email": "user@gmail.com",
+    "password": "123",
+    "address": "Ha Noi",
+    "phone": "0343285406",
+    "photo": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+    "role": "USER"
+  },
+  {
+    "name": "Duong Tri Dung",
+    "username": "admin",
+    "email": "admin@gmail.com",
+    "password": "123",
+    "address": "Ha Noi",
+    "phone": "0343285405",
+    "photo": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+    "role": "ADMIN"
+  }
+]
