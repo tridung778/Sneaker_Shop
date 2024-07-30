@@ -3,6 +3,9 @@ package com.example.Java6_ASM.services.implement;
 import com.example.Java6_ASM.models.Category;
 import com.example.Java6_ASM.repositories.CategoryRepository;
 import com.example.Java6_ASM.services.CategoryService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,4 +23,9 @@ public class CategoryServiceImpl implements CategoryService {
             return categoryRepository.save(newCategory);
         });
     }
+
+	@Override
+	public List<Category> findAll() {
+		return categoryRepository.findAll();
+	}
 }

@@ -1,6 +1,7 @@
 package com.example.Java6_ASM.controllers;
 
 import com.example.Java6_ASM.models.Product;
+import com.example.Java6_ASM.services.CategoryService;
 import com.example.Java6_ASM.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,16 +19,14 @@ public class MainController {
 	@Autowired
 	ProductService productService;
 
+	@Autowired
+	CategoryService categoryService;
+
 	@RequestMapping("/")
-	public String index(Model model, @RequestParam("cid") Optional<UUID> cid) {
+	public String index(Model model) {
 		model.addAttribute("page", "components/home");
-		if (cid.isPresent()) {
-			List<Product> list = productService.findByCategoryId(cid.get());
-			model.addAttribute("items", list);
-		} else {
-			List<Product> list = productService.findAll();
-			model.addAttribute("items", list);
-		}
+		List<Product> list = productService.findAll();
+		model.addAttribute("items", list);
 		return "index";
 	}
 
@@ -39,11 +38,26 @@ public class MainController {
 		return "index";
 	}
 
+	@RequestMapping("/category")
+	public String productInCategory(Model model, @RequestParam("cid") Optional<UUID> cid) {
+		model.addAttribute("page", "product/product-category");
+		model.addAttribute("cates", categoryService.findAll());
+		if (cid.isPresent()) {
+			List<Product> list = productService.findByCategoryId(cid.get());
+			model.addAttribute("items", list);
+		} else {
+			List<Product> list = productService.findAll();
+			model.addAttribute("items", list);
+		}
+		return "index";
+	}
+
+
 	@RequestMapping("/admin")
-    public String admin(Model model) {
-        model.addAttribute("addProduct", "admin/home.html");
-        return "admin-index";
-    }
+	public String admin(Model model) {
+		model.addAttribute("addProduct", "admin/home.html");
+		return "admin-index";
+	}
 
 	@RequestMapping("/login")
 	public String login(Model model) {
@@ -55,12 +69,6 @@ public class MainController {
 	public String signup(Model model) {
 		model.addAttribute("page", "login/signup");
 		return "login/signup";
-	}
-
-	@RequestMapping("/category")
-	public String productCategory(Model model) {
-		model.addAttribute("page", "product/product-category");
-		return "index";
 	}
 
 	@RequestMapping("/cart-index")
