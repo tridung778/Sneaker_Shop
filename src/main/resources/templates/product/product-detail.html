@@ -10,7 +10,8 @@
 			<h3 class="fs-3 fw-bold" th:text="*{name}"></h3>
 			<div>
 				<h4 class="btn_drop mt-3 fw-bold">
-					<span class="fw-bold text-danger" th:text="*{price}"> </span>
+					<span class="fw-bold text-danger"
+						th:text="*{#numbers.formatDecimal(price, 0, 'COMMA', 0, 'POINT')}"></span></span>₫
 				</h4>
 			</div>
 			<ul class="ps-3 py-3 d-none d-sm-block">
@@ -57,8 +58,9 @@
 						class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
 						<a class="text-black text-decoration-none fw-bold px-2"
 							th:href="@{|/${p.id}|}" th:text="${p.name}"></a>
-						<div class="lh-lg pb-3">
-							<span class="fw-bold text-danger" th:text="${p.price}"></span>
+						<div class="lh-lg pb-3 text-danger">
+							<span class="fw-bold"
+								th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT')}"></span><b>₫</b>
 						</div>
 						<a class="text-decoration-none p-2 btn btn-outline-danger"
 							href="#">Thêm vào giỏ</a>

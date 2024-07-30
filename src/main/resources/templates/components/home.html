@@ -5,7 +5,7 @@
 			<div class="carousel-item">
 				<div class="position-relative">
 					<div class="text_box position-absolute">
-						<h4 class="fs-4 fw-bold text-white m-0">HXLuong Sneaker</h4>
+						<h4 class="fs-4 fw-bold text-white m-0">LADV SNEAKER</h4>
 						<h1 class="text-white fw-bold lh-sm py-2"
 							style="font-size: 3.5em;">Giày ADIDAS</h1>
 						<p class="text-white lh-sm mb-4 d-none d-sm-block">Cùng với sự
@@ -23,7 +23,7 @@
 			<div class="carousel-item active">
 				<div class="position-relative">
 					<div class="text_box position-absolute">
-						<h4 class="fs-4 fw-bold text-white m-0">HXLuong Sneaker</h4>
+						<h4 class="fs-4 fw-bold text-white m-0">LADV SNEAKER</h4>
 						<h1 class="text-white fw-bold lh-sm py-2"
 							style="font-size: 3.5em;">Giày Converse</h1>
 						<p class="text-white lh-sm mb-4 d-none d-sm-block">Chào mừng
@@ -99,9 +99,10 @@
 				<div
 					class="text-truncate border-top flex-column text-center pt-3 pb-5 ">
 					<a class="text-black text-decoration-none fw-bold px-2"
-						th:href="@{|/detail/${p.id}|}" th:utext="${p.name}"></a>
-					<div class="lh-lg pb-3">
-						<span class="fw-bold text-danger">$[[${p.price}]]</span>
+						th:href="@{|/${p.id}|}" th:utext="${p.name}"></a>
+					<div class="lh-lg pb-3 text-danger">
+						<span class="fw-bold"
+							th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT')}"></span><b>₫</b>
 					</div>
 					<a class="text-decoration-none p-2 btn btn-outline-danger" href="#">Thêm
 						vào giỏ</a>
