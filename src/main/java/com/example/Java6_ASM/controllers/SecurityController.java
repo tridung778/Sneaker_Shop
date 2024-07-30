@@ -1,16 +1,27 @@
 package com.example.Java6_ASM.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.Java6_ASM.SecurityConfig;
+import com.example.Java6_ASM.models.Product;
+import com.example.Java6_ASM.services.CategoryService;
+import com.example.Java6_ASM.services.ProductService;
 
 @Controller
 public class SecurityController {
 	@Autowired
 	SecurityConfig service;
+
+	@Autowired
+	ProductService productService;
+
+	@Autowired
+	CategoryService categoryService;
 
 	@RequestMapping("/security/login/form")
 	public String loginForm(Model md) {
@@ -19,15 +30,18 @@ public class SecurityController {
 	}
 
 	@RequestMapping("/security/login/success")
-	public String success(Model md) {
-		md.addAttribute("message", "success");
-		// return "security/login";
+	public String success(Model model) {
+		model.addAttribute("message", "success");
+		model.addAttribute("page", "components/home");
+		List<Product> list = productService.findAll();
+		model.addAttribute("items", list);
 		return "index";
 	}
 
 	@RequestMapping("/security/login/error")
 	public String error(Model md) {
-		return "login/login";
+		md.addAttribute("page", "login/signup");
+		return "login/signup";
 	}
 
 	@RequestMapping("/security/unauthoried")

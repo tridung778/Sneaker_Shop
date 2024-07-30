@@ -11,25 +11,25 @@ import java.util.UUID;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-    @Autowired
-    private AccountRepository accountRepository;
+	@Autowired
+	private AccountRepository accountRepository;
 
-    @Override
-    public Account findById(String username) {
-        return accountRepository.findById(username);
-    }
+	public List<Account> findAll() {
+		return accountRepository.findAll();
+	}
 
-    public List<Account> findAll() {
-        return accountRepository.findAll();
-    }
+	@Override
+	public Account createAccount(Account account) {
+		return accountRepository.save(account);
+	}
 
-    @Override
-    public Account createAccount(Account account) {
-        return accountRepository.save(account);
-    }
+	@Override
+	public Account findById(UUID id) {
+		return accountRepository.findById(id).orElse(null);
+	}
 
-    @Override
-    public Account findById(UUID id) {
-        return accountRepository.findById(id).orElse(null);
-    }
+	@Override
+	public Account findByUsername(String username) {
+		return accountRepository.findByUsername(username);
+	}
 }
