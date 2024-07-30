@@ -3,24 +3,23 @@ package com.example.Java6_ASM.services.implement;
 import com.example.Java6_ASM.models.Account;
 import com.example.Java6_ASM.repositories.AccountRepository;
 import com.example.Java6_ASM.services.AccountService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 public class AccountServiceImpl implements AccountService {
+	@Autowired
+	AccountRepository dao;
 
-    @Autowired
-    private AccountRepository accountRepository;
+	@Override
+	public Account findById(String username) {
+		return dao.findById(username);
+	}
 
-    @Override
-    public Account createAccount(Account account) {
-        return accountRepository.save(account);
-    }
-
-    @Override
-    public Account findById(UUID id) {
-        return accountRepository.findById(id).orElse(null);
-    }
+	public List<Account> findAll() {
+		return dao.findAll();
+	}
 }
