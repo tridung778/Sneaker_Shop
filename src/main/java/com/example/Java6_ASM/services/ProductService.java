@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductService {
-    void saveAllProduct(List<Product> products);
+    void saveProduct(Product product);
     
     List<Product> findAll();
 

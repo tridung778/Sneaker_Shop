@@ -22,8 +22,8 @@ public class ProductServiceImpl implements ProductService {
     private CategoryService categoryService;
 
     @Override
-    public void saveAllProduct(List<Product> products) {
-        for (Product product : products) {
+    public void saveProduct(Product product) {
+
             // Tìm hoặc tạo danh mục
             String categoryName = product.getCategory().getName();
             Category category = categoryService.findOrCreateCategory(categoryName);
@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
             // Lưu sản phẩm
             productRepository.save(product);
-        }
+
     }
 
 	@Override

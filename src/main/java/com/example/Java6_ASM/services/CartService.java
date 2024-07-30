@@ -10,4 +10,10 @@ public interface CartService {
     List<Cart> getAllItemInCart(UUID id);
 
     Cart addItemToCart(Cart cart);
+
+    void deleteItemInCart(UUID itemID);
+
+    Cart findItemById(UUID id);
+
+    Cart reduceQuantityItemInCart(UUID itemID);
 }
