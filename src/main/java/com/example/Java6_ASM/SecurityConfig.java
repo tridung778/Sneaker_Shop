@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
@@ -39,11 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(username -> {
 			try {
 				Account user = accountService.findByUsername(username);
-				String pass = pe.encode(user.getPassword());
-//				String[] role = user.getAuthorities().stream().map(er -> er.getRole().getId())
-//						.collect(Collectors.toList()).toArray(new String[0]);
-				return User.withUsername(username).password(pass).roles("DIRE").build();
-//				return User.withUsername(username).password(pass).roles(role).build();
+				String pass = user.getPassword();
+				String role = user.getRole().toString();
+				return User.withUsername(username).password(pass).roles(role).build();
 			} catch (NoSuchElementException e) {
 				throw new UsernameNotFoundException(username + "Not Found");
 			}
@@ -64,8 +63,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().cors().disable();
 
+//		http.authorizeRequests().antMatchers("/order/**").authenticated().antMatchers("/admin/**")
+//				.hasAnyRole("ADMIN", "USER").antMatchers("/rest/authorities").hasRole("DIRE").anyRequest().permitAll();
+
 		http.authorizeRequests().antMatchers("/order/**").authenticated().antMatchers("/admin/**")
-				.hasAnyRole("STAF", "DIRE").antMatchers("/rest/authorities").hasRole("DIRE").anyRequest().permitAll();
+				.hasAnyRole("ADMIN", "USER").anyRequest().permitAll();
 
 		http.formLogin().loginPage("/security/login/form").loginProcessingUrl("/security/login")
 				.defaultSuccessUrl("/login-success", false).failureUrl("/security/login/error");
