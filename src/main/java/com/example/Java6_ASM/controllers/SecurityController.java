@@ -38,7 +38,7 @@ public class SecurityController {
 	@RequestMapping("/security/login/error")
 	public String error(Model md) {
 		md.addAttribute("page", "login/signup");
-		return "login/signup";
+		return "redirect:/login";
 	}
 
 	@RequestMapping("/unauthoried")
