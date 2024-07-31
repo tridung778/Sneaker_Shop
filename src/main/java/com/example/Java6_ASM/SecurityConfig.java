@@ -17,38 +17,37 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Autowired
-    private AccountService accountService;
+	@Autowired
+	private AccountService accountService;
 
-    @Autowired
-    private BCryptPasswordEncoder pe;
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(username -> {
-            try {
-                Account user = accountService.findById(username);
-                String pass = pe.encode(user.getPassword());
-//				String[] role = user.getAuthorities().stream().map(er -> er.getRole().getId())
-//						.collect(Collectors.toList()).toArray(new String[0]);
-                return User.withUsername(username).password(pass).roles("DIRE").build();
-//				return User.withUsername(username).password(pass).roles(role).build();
-            } catch (NoSuchElementException e) {
-                throw new UsernameNotFoundException(username + "Not Found");
-            }
-        });
-    }
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(username -> {
+			try {
+				Account user = accountService.findByUsername(username);
+				String pass = user.getPassword();
+				String role = user.getRole().toString();
+				return User.withUsername(username).password(pass).roles(role).build();
+			} catch (NoSuchElementException e) {
+				throw new UsernameNotFoundException(username + "Not Found");
+			}
+		});
+	}
 
 //	public void loginFromOauth2(OAuth2AuthenticationToken oauth2) {
 //		String email = oauth2.getPrincipal().getAttribute("email");
@@ -60,28 +59,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		SecurityContextHolder.getContext().setAuthentication(auth);
 //	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().disable();
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable().cors().disable();
 
-        http.authorizeRequests().antMatchers("/order/**").authenticated().antMatchers("/admin/**")
-                .hasAnyRole("STAF", "DIRE").antMatchers("/rest/authorities").hasRole("DIRE").anyRequest().permitAll();
+//		http.authorizeRequests().antMatchers("/order/**").authenticated().antMatchers("/admin/**")
+//				.hasAnyRole("ADMIN", "USER").antMatchers("/rest/authorities").hasRole("DIRE").anyRequest().permitAll();
 
+		http.authorizeRequests().antMatchers("/order/**").authenticated().antMatchers("/admin/**")
+				.hasAnyRole("ADMIN", "USER").anyRequest().permitAll();
 
-        http.formLogin().loginPage("/security/login/form").loginProcessingUrl("/security/login")
-                .defaultSuccessUrl("/security/login/success", false).failureUrl("/security/login/error");
+		http.formLogin().loginPage("/security/login/form").loginProcessingUrl("/security/login")
+				.defaultSuccessUrl("/login-success", false).failureUrl("/security/login/error");
 
-        http.rememberMe().tokenValiditySeconds(86400);
+		http.rememberMe().tokenValiditySeconds(86400);
 
-        http.exceptionHandling().accessDeniedPage("/security/unauthoried");
-        http.logout().logoutUrl("/security/logoff").logoutSuccessUrl("/security/logoff/success");
+		http.exceptionHandling().accessDeniedPage("/unauthoried");
+		http.logout().logoutUrl("/security/logoff").logoutSuccessUrl("/logoff-success");
 
 //		http.oauth2Login().loginPage("/security/login/form").defaultSuccessUrl("/oauth2/login/success", true)
 //				.failureUrl("/security/login/error").authorizationEndpoint().baseUri("/oauth2/authorization");
-    }
+	}
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.OPTIONS);
-    }
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers(HttpMethod.OPTIONS);
+	}
 }

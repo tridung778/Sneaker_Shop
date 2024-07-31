@@ -1,8 +1,10 @@
 package com.example.Java6_ASM.services.implement;
 
 import com.example.Java6_ASM.models.Cart;
+import com.example.Java6_ASM.models.Product;
 import com.example.Java6_ASM.repositories.CartRepository;
 import com.example.Java6_ASM.services.CartService;
+import com.example.Java6_ASM.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +18,24 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private CartRepository cartRepository;
 
+    @Autowired
+    private ProductService productService;
+
     @Override
     public Cart addItemToCart(Cart item) {
         Optional<Cart> existingItemOpt = cartRepository.findByAccountAndName(item.getAccount(), item.getName());
 
         if (existingItemOpt.isPresent()) {
-            Cart existingItem = existingItemOpt.get();
-            existingItem.setQuantity(existingItem.getQuantity() + 1);
+            Product product = productService.findById(item.getProductId()).get();
+            int totalQuantityProduct = product.getQuantity();
+            Cart existingItem = existingItemOpt.get();;
+            if (totalQuantityProduct > existingItem.getQuantity()) {
+//                System.out.println(totalQuantityProduct);
+//                System.out.println(existingItem.getQuantity());
+                existingItem.setQuantity(existingItem.getQuantity() + 1);
+            }else{
+                existingItem.setQuantity(existingItem.getQuantity());
+            }
             return cartRepository.save(existingItem);
         } else {
             item.setQuantity(1);
@@ -62,5 +75,10 @@ public class CartServiceImpl implements CartService {
             item.setQuantity(1);
             return cartRepository.save(item);
         }
+    }
+
+    @Override
+    public void deleteAllItemInCart() {
+        cartRepository.deleteAll();
     }
 }

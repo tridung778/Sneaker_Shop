@@ -1,6 +1,7 @@
 package com.example.Java6_ASM.controllers;
 
 import com.example.Java6_ASM.models.Product;
+import com.example.Java6_ASM.services.AccountService;
 import com.example.Java6_ASM.services.CategoryService;
 import com.example.Java6_ASM.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,15 @@ public class MainController {
 	@Autowired
 	CategoryService categoryService;
 
+	@Autowired
+	AccountService accountService;
+
 	@RequestMapping("/")
 	public String index(Model model) {
 		model.addAttribute("page", "components/home");
 		List<Product> list = productService.findAll();
 		model.addAttribute("items", list);
+		model.addAttribute("userInfo", accountService.getInfoAuth());
 		return "index";
 	}
 
@@ -74,6 +79,7 @@ public class MainController {
 	@RequestMapping("/cart-index")
 	public String cart(Model model) {
 		model.addAttribute("page", "cart/cart-index");
+		model.addAttribute("userInfo", accountService.getInfoAuth());
 		return "index";
 	}
 }

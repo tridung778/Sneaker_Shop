@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -21,6 +22,7 @@ public class Cart extends BaseModel{
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
+    private UUID productId;
     private String thumbnail;
     private String name;
     private String category;
