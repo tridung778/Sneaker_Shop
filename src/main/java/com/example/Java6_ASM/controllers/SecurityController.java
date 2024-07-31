@@ -25,7 +25,7 @@ public class SecurityController {
 
 	@RequestMapping("/security/login/form")
 	public String loginForm(Model md) {
-		md.addAttribute("message", "Vui Long dang nhap");
+		md.addAttribute("message", "Vui Lòng đăng nhập");
 		return "login/login";
 	}
 
@@ -37,19 +37,19 @@ public class SecurityController {
 
 	@RequestMapping("/security/login/error")
 	public String error(Model md) {
-		md.addAttribute("page", "login/signup");
+		md.addAttribute("message", "Tên đăng nhập hoặc mật khẩu không đúng");
 		return "redirect:/login";
 	}
 
 	@RequestMapping("/unauthoried")
 	public String unauthoried(Model md) {
-		md.addAttribute("message", "Khong co quyen truy xuat");
+		md.addAttribute("message", "Không có quyền truy xuất");
 		return "security/login";
 	}
 
 	@RequestMapping("logoff-success")
 	public String logoff(Model md) {
-		md.addAttribute("message", "Dang xuat thanh cong");
+		md.addAttribute("message", "Đăng xuất thành công");
 		return "redirect:/";
 	}
 

@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				String pass = user.getPassword();
 				String role = user.getRole().toString();
 				return User.withUsername(username).password(pass).roles(role).build();
-			} catch (NoSuchElementException e) {
+			} catch (Exception e) {
 				throw new UsernameNotFoundException(username + "Not Found");
 			}
 		});

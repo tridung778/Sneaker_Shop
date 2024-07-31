@@ -4,7 +4,7 @@
             <div class="d-flex align-items-center justify-content-between py-2">
                 <div class="col-sm-2 col-lg-2 p-0">
                     <a href="/" class="d-flex align-items-center overflow-hidden">
-                        <img src="./images/logo.png" height="60px" alt=""/>
+                        <img src="./images/logo.png" width="180px" height="85px" alt=""/>
                     </a>
                 </div>
                 <div class="col-sm-8 co-lg-8 p-0">
@@ -23,7 +23,7 @@
                         <a href="#" class="d-flex align-items-center text-decoration-none dropdown-center"
                            data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle text-white fs-2 header_icon"></i>
-                            <span class="text-white ms-4" th:if="${userInfo}">Xin chèo, [[${userInfo.name}]]</span>
+                            <span class="text-white ms-4" th:if="${userInfo}">Xin chào, [[${userInfo.name}]]</span>
                         </a>
                         <ul class="dropdown-menu" th:if="${userInfo == null}">
                             <li><a class="dropdown-item" href="/login">Đăng Nhập</a></li>
@@ -67,7 +67,7 @@
         <div class="collapse navbar-collapse w-100" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex gap-5 justify-content-center w-100">
                 <li class="nav-item mt-3 mt-lg-0 ">
-                    <a href="#" class="text-white text-decoration-none fw-medium pb-1 nav_btn">TRANG
+                    <a href="/" class="text-white text-decoration-none fw-medium pb-1 nav_btn">TRANG
                         CHỦ</a>
                 </li>
                 <li class="nav-item">
