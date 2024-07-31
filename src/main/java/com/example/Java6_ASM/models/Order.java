@@ -2,14 +2,12 @@ package com.example.Java6_ASM.models;
 
 import com.example.Java6_ASM.enums.OrderStatus;
 import com.example.Java6_ASM.enums.PaymentMethod;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @AllArgsConstructor
 @Entity
@@ -25,10 +23,6 @@ public class Order extends BaseModel {
     @ManyToOne
     @JoinColumn(name = "account_id")
     Account account;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "order")
-    List<OrderDetail> orderDetails;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;

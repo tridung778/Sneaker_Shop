@@ -68,12 +68,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.hasAnyRole("STAF", "DIRE").antMatchers("/rest/authorities").hasRole("DIRE").anyRequest().permitAll();
 
 		http.formLogin().loginPage("/security/login/form").loginProcessingUrl("/security/login")
-				.defaultSuccessUrl("/security/login/success", false).failureUrl("/security/login/error");
+				.defaultSuccessUrl("/login-success", false).failureUrl("/security/login/error");
 
 		http.rememberMe().tokenValiditySeconds(86400);
 
-		http.exceptionHandling().accessDeniedPage("/security/unauthoried");
-		http.logout().logoutUrl("/security/logoff").logoutSuccessUrl("/security/logoff/success");
+		http.exceptionHandling().accessDeniedPage("/unauthoried");
+		http.logout().logoutUrl("/security/logoff").logoutSuccessUrl("/logoff-success");
 
 //		http.oauth2Login().loginPage("/security/login/form").defaultSuccessUrl("/oauth2/login/success", true)
 //				.failureUrl("/security/login/error").authorizationEndpoint().baseUri("/oauth2/authorization");

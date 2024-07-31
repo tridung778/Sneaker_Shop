@@ -2,13 +2,10 @@ package com.example.Java6_ASM.controllers;
 
 import com.example.Java6_ASM.DTO.StripeRequestDTO;
 import com.example.Java6_ASM.DTO.StripeResponseDTO;
-import com.example.Java6_ASM.models.Account;
-import com.example.Java6_ASM.models.Cart;
-import com.example.Java6_ASM.models.Product;
-import com.example.Java6_ASM.services.AccountService;
-import com.example.Java6_ASM.services.CartService;
-import com.example.Java6_ASM.services.PaypalService;
-import com.example.Java6_ASM.services.ProductService;
+import com.example.Java6_ASM.enums.OrderStatus;
+import com.example.Java6_ASM.enums.PaymentMethod;
+import com.example.Java6_ASM.models.*;
+import com.example.Java6_ASM.services.*;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
@@ -25,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,6 +39,12 @@ public class CartController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private OrderDetailService orderDetailService;
 
     @Value("${stripe.api.publicKey}")
     private String publicKey;
@@ -78,10 +82,27 @@ public class CartController {
         item.setThumbnail(product.getImage());
         item.setCategory(product.getCategory().getName());
         item.setAccount(account);
+        item.setProductId(product.getId());
         Cart cart = cartService.addItemToCart(item);
         return ResponseEntity.ok(cart);
     }
 
+    // Payment
+    @PutMapping("/payment")
+    public ResponseEntity<String> payment() {
+        List<Cart> cartList = cartService.getAllItemInCart(accountService.getInfoAuth().getId());
+        Order order = orderService.createOrder(accountService.getInfoAuth(), PaymentMethod.COD, OrderStatus.PENDING, new Date());
+        cartList.forEach(cart -> {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setPrice(cart.getPrice());
+            orderDetail.setQuantity(cart.getQuantity());
+            orderDetail.setProduct(productService.findById(cart.getProductId()).get());
+            orderDetail.setOrder(order);
+            orderDetailService.createOrderDetail(orderDetail);
+        });
+        cartService.deleteAllItemInCart();
+        return ResponseEntity.ok().body("Payment success");
+    }
 
     //Stripe payment
     @PostMapping("/create-payment-intent")
