@@ -3,7 +3,7 @@ package com.example.Java6_ASM.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,9 +17,10 @@ import com.example.Java6_ASM.services.AccountService;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/rest/accounts")
-public class AccountController {
+public class AccountRESTController {
 	@Autowired
 	AccountService service;
+	BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 
 	@GetMapping()
 	public List<Account> getAll() {
@@ -28,6 +29,9 @@ public class AccountController {
 
 	@PostMapping()
 	public Account create(@RequestBody Account acc) {
+		String rawPassword = acc.getPassword();
+		String encodedPassword = pe.encode(rawPassword);
+		acc.setPassword(encodedPassword);
 		return service.createAccount(acc);
 	}
 }
