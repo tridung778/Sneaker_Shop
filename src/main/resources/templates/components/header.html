@@ -4,7 +4,7 @@
             <div class="d-flex align-items-center justify-content-between py-2">
                 <div class="col-sm-2 col-lg-2 p-0">
                     <a href="/" class="d-flex align-items-center overflow-hidden">
-                        <img src="./images/logo.png" width="180px" height="85px" alt=""/>
+                        <img src="./images/logo.png" height="60px" alt=""/>
                     </a>
                 </div>
                 <div class="col-sm-8 co-lg-8 p-0">
@@ -23,10 +23,14 @@
                         <a href="#" class="d-flex align-items-center text-decoration-none dropdown-center"
                            data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle text-white fs-2 header_icon"></i>
+                            <span class="text-white ms-4" th:if="${userInfo}">Xin chèo, [[${userInfo.name}]]</span>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" th:if="${userInfo == null}">
                             <li><a class="dropdown-item" href="/login">Đăng Nhập</a></li>
                             <li><a class="dropdown-item" href="/signup">Đăng Ký</a></li>
+                        </ul>
+                        <ul class="dropdown-menu" th:if="${userInfo}" th:attr="ng-init='loadCart(\''+${userInfo.id}+'\');'">
+                            <li><a class="dropdown-item" href="/security/logoff">Đăng xuất</a></li>
                         </ul>
                     </div>
                     <a href="/cart-index"
@@ -42,7 +46,7 @@
 </header>
 
 <!-- Nav -->
-<nav class="navbar navbar-expand-lg p-3 d-flex justify-content-center ">
+<nav class="navbar navbar-expand-lg p-3 d-flex justify-content-center">
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center">
             <button class="navbar-toggler btn_drop border " type=" button" data-bs-toggle="collapse"

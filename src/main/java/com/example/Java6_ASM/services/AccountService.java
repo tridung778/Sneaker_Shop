@@ -15,4 +15,6 @@ public interface AccountService {
 
 	Account findByUsername(String id);
 
+	Account getInfoAuth();
+
 }
