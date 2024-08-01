@@ -14,4 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     @Query("delete from Product where name = ?1")
     void deleteByName(String productName);
+	
+	@Query("SELECT p FROM Product p WHERE p.category.id=?1")
+	List<Product> findByCategoryId(UUID cid);
 }

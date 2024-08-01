@@ -22,8 +22,8 @@ public class ProductServiceImpl implements ProductService {
     private CategoryService categoryService;
 
     @Override
-    public void saveAllProduct(List<Product> products) {
-        for (Product product : products) {
+    public void saveProduct(Product product) {
+
             // Tìm hoặc tạo danh mục
             String categoryName = product.getCategory().getName();
             Category category = categoryService.findOrCreateCategory(categoryName);
@@ -31,8 +31,14 @@ public class ProductServiceImpl implements ProductService {
 
             // Lưu sản phẩm
             productRepository.save(product);
-        }
+
     }
+
+    @Override
+    public void saveAllProduct(List<Product> products) {
+
+    }
+
     @Override
     public List<Product> finAll() {
         return productRepository.findAll();
@@ -64,4 +70,19 @@ public class ProductServiceImpl implements ProductService {
     public void delete(UUID id) {
         productRepository.deleteById(id);
     }
+
+	@Override
+	public List<Product> findAll() {
+		return productRepository.findAll();
+	}
+
+	@Override
+	public Optional<Product> findById(UUID id) {
+		return productRepository.findById(id);
+	}
+
+	@Override
+	public List<Product> findByCategoryId(UUID cid) {
+		return productRepository.findByCategoryId(cid);
+	}
 }
