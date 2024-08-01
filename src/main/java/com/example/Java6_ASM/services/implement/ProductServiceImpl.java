@@ -34,6 +34,43 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
+    public void saveAllProduct(List<Product> products) {
+
+    }
+
+    @Override
+    public List<Product> finAll() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    public Product finById(UUID id) {
+        Optional<Product> product = productRepository.findById(id);
+        return product.orElse(null);
+    }
+
+    @Override
+    public List<Product> findByCategoryId(String cid) {
+        return List.of();
+    }
+
+
+    @Override
+    public Product create(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Override
+    public Product update(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Override
+    public void delete(UUID id) {
+        productRepository.deleteById(id);
+    }
+
 	@Override
 	public List<Product> findAll() {
 		return productRepository.findAll();

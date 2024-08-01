@@ -3,8 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        .border-success {
+            border: 2px solid green; /* Màu viền xanh lá cây */
+            border-radius: 5px; /* Góc viền bo tròn nhẹ */
+            padding: 20px; /* Khoảng cách bên trong viền */
+            margin: 10px; /* Khoảng cách bên ngoài viền */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+            background-color: #f9f9f9; /* Màu nền nhẹ để làm nổi bật viền */
+            height: 180px;
+            font-size: 26px;
+            font-weight: bold;
+            font-family: "Euclid Circular A", sans-serif;
+        }
+        .container {
+            padding: 20px; /* Khoảng cách bên trong của hàng */
+        }
+    </style>
 </head>
 <body>
 <h1>Đây là trang chủ</h1>
+    <div class="container">
+        <div class="row gx-5 mx-3 bg-info-subtle">
+            <div class="col-sm-4">
+                <div class="border-success text-center"><i class="bi bi-person-circle"></i>Total User</div>
+                <p class="text-center"></p>
+            </div>
+            <div class="col-sm-4">
+                <div class="border-success text-center"><i class="bi bi-currency-dollar"></i>Total Amount</div>
+                <p class="text-center"></p>
+            </div>
+            <div class="col-sm-4">
+                <div class="border-success text-center"><i class="bi bi-box-seam"></i>Total Order</div>
+                <p class="text-center"></p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

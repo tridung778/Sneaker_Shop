@@ -1,15 +1,18 @@
+/* Căn chỉnh toàn bộ trang */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     margin: 0;
+    font-family: "Poppins", sans-serif;
     background-image: url("logo.png");
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: 50%;
+    background-position: center;
     height: 100vh;
-    font-family: "Euclid Circular A";
 }
 
 button {
@@ -20,14 +23,12 @@ button {
     text-align: left;
 }
 
+/* Định dạng thanh bên */
 .sidebar {
     position: fixed;
-    top: 24px;
-    left: 24px;
-    bottom: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    top: 0;
+    left: 0;
+    bottom: 0;
     width: 260px;
     border-radius: 16px;
     padding: 0 16px;
@@ -35,6 +36,7 @@ button {
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(20px);
     transition: width 0.4s;
+    z-index: 1000;
 }
 
 .sidebar header {
@@ -54,66 +56,70 @@ button {
 }
 
 .sidebar button {
-    position: relative;
     display: flex;
-    gap: 16px;
     align-items: center;
     height: 50px;
     width: 100%;
     border-radius: 6px;
-    font-family: inherit;
     font-size: 16px;
     font-weight: 400;
-    line-height: 1;
     padding: 0 16px;
     color: rgba(255, 255, 255, 0.95);
+    background: transparent;
+    transition: background 0.3s;
+    position: relative;
 }
 
-.sidebar button p:nth-child(2) {
-    flex: 1 1 auto;
+.sidebar i {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar button p {
+    flex: 1;
+    margin: 0;
     transition: opacity 0.3s, transform 0.3s;
 }
 
-.sidebar button:is(.active, :hover) {
+.sidebar button:hover,
+.sidebar button.active {
     background: rgba(0, 0, 0, 0.3);
 }
 
-.sidebar button i {
-    transition: 0.3s;
+.sidebar.collapsed {
+    width: 80px;
 }
 
-.sidebar button.active > i:nth-child(3) {
-    transform: rotate(-180deg);
-}
-
-.sidebar button:not(.active):hover {
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.sidebar ul {
-    display: grid;
-    list-style: none;
+.sidebar.collapsed button {
+    justify-content: center;
     padding: 0;
-    margin: 0;
-    width: 100%;
+}
+
+.sidebar.collapsed button p {
+    opacity: 0;
+    transform: translateX(-100%);
+    pointer-events: none;
 }
 
 .sub-menu {
-    position: relative;
     overflow: hidden;
     height: 0;
     transition: height 0.5s;
 }
 
 .sub-menu ul {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: grid;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .sub-menu button {
     padding-left: 52px;
+    position: relative;
 }
 
 .sub-menu button::before {
@@ -128,37 +134,76 @@ button {
     background-color: rgba(255, 255, 255, 0.35);
 }
 
-.sidebar .material-symbols-outlined {
-    font-size: 16px;
-}
-
-.sidebar i {
+.sidebar.collapsed i {
     font-size: 20px;
-    width: 20px;
-    max-width: 20px;
-    min-width: 20px;
 }
 
-.sidebar.collapsed {
-    width: 80px;
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
-.sidebar.collapsed p {
+.sidebar a {
+    color: rgba(255, 255, 255, 0.95);
+    text-decoration: none;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.sidebar.collapsed a {
     opacity: 0;
     transform: translateX(-100%);
     pointer-events: none;
 }
 
-.sidebar.collapsed .sub-menu {
-    display: none;
-}
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
+        left: 0;
+        bottom: 0;
+    }
 
-.sidebar.collapsed button {
-    justify-content: center;
-}
+    .sidebar.collapsed {
+        height: 60px;
+        width: 100%;
+    }
 
-.sidebar button:hover p {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
+    .sidebar.collapsed button {
+        display: none;
+    }
+
+    .sidebar.collapsed header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .sidebar.collapsed header button {
+        display: block;
+    }
+
+    .sidebar.collapsed .sub-menu {
+        height: auto;
+    }
+
+    .sidebar.collapsed ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .sidebar.collapsed ul li {
+        width: 50%;
+    }
+
+    .sidebar.collapsed ul li button,
+    .sidebar.collapsed ul li a {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
 }
