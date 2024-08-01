@@ -1,0 +1,64 @@
+<div class="container">
+        <div>
+            <h3 class="fs-3 text-center text-danger fw-bold my-4">Thông tin hóa đơn</h3>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="form-group col-sm-4">
+                            <div>Mã hóa đơn:</div>
+                            <input th:field="*{id}" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <div>Người mua:</div>
+                            <input th:field="*{account.username}" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <div>Ngày mua:</div>
+                            <input th:field="*{createDate}" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="form-group col-sm-6">
+                            <div>Trạng thái:</div>
+                            <input th:field="*{id}" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <div>Phương thức thanh toán:</div>
+                            <input th:field="*{account.username}" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <div>Địa chỉ giao hàng:</div>
+                            <textarea th:field="*{address}" class="form-control" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3 class="fs-3 text-center text-danger fw-bold my-4">Thông tin sản phẩm</h3>
+            <div class="card">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Tổng tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="detail:*{orderDetails}" th:object="${detail}">
+                            <td>[[*{product.id}]]</td>
+                            <td>[[*{product.name}]]</td>
+                            <td>$[[*{#numbers.formatDecimal(price, 0, 'COMMA', 2, 'POINT')}]]</td>
+                            <td>[[*{quantity}]]</td>
+                            <td>$[[*{#numbers.formatDecimal(price*quantity, 0, 'COMMA', 2, 'POINT')}]]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
