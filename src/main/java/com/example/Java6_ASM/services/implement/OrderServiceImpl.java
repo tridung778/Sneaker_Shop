@@ -19,8 +19,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Override
-    public Order createOrder(Account account, PaymentMethod paymentMethod, OrderStatus orderStatus, Date createdAt) {
+    public Order createOrder(Account account, PaymentMethod paymentMethod, OrderStatus orderStatus, String address) {
         Order order = new Order();
+        order.setAddress(address);
         order.setCreatedAt(new Date());
         order.setAccount(account);
         order.setPaymentMethod(paymentMethod);

@@ -31,7 +31,6 @@ public class SecurityController {
 
 	@RequestMapping("/login-success")
 	public String success(Model model) {
-		System.out.println("User info:" + accountService.getInfoAuth());
 		return "redirect:/";
 	}
 

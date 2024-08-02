@@ -5,12 +5,11 @@ import com.example.Java6_ASM.enums.PaymentMethod;
 import com.example.Java6_ASM.models.Account;
 import com.example.Java6_ASM.models.Order;
 
-import java.util.Date;
 import java.util.List;
 
 public interface OrderService {
 
-    Order createOrder(Account account, PaymentMethod paymentMethod, OrderStatus orderStatus, Date createdAt);
+    Order createOrder(Account account, PaymentMethod paymentMethod, OrderStatus orderStatus, String address);
 
     List<Order> findByAccount(Account account);
 
