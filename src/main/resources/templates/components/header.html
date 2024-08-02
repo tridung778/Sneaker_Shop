@@ -7,7 +7,7 @@
                         <img src="./images/logo.png" width="180px" height="85px" alt=""/>
                     </a>
                 </div>
-                <div class="col-sm-8 co-lg-8 p-0">
+                <div class="col-sm-7 co-lg-7 p-0">
                     <div class="d-lg-flex align-items-center justify-content-center d-sm-block d-none">
                         <div>
                             <input class="rounded-start lh-lg border-white p-2" type="search"
@@ -18,7 +18,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-sm-2 co-lg-2 p-0 d-flex gap-4 justify-content-end">
+                <div class="col-sm-3 co-lg-3 p-0 d-flex gap-4 justify-content-end">
                     <div class="dropdown d-sm-block d-none">
                         <a href="#" class="d-flex align-items-center text-decoration-none dropdown-center"
                            data-bs-toggle="dropdown">
@@ -30,6 +30,8 @@
                             <li><a class="dropdown-item" href="/signup">Đăng Ký</a></li>
                         </ul>
                         <ul class="dropdown-menu" th:if="${userInfo}" th:attr="ng-init='loadCart(\''+${userInfo.id}+'\');'">
+                            <li><a class="dropdown-item" href="/profile">Cập nhật hồ sơ</a></li>
+                            <li><a class="dropdown-item" href="/orderList">Lịch sử mua hàng</a></li>
                             <li><a class="dropdown-item" href="/security/logoff">Đăng xuất</a></li>
                         </ul>
                     </div>
