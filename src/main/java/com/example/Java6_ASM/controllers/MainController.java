@@ -116,4 +116,11 @@ public class MainController {
 		return "index";
 	}
 
+	@RequestMapping("/purchase")
+	public String purchase(Model model) {
+		model.addAttribute("userInfo", accountService.getInfoAuth());
+		model.addAttribute("page", "order/purchase");
+		return "index";
+	}
+
 }
