@@ -52,19 +52,51 @@ app.controller('myController', function ($scope, $http) {
             }
         }
 
-        $scope.payment = function () {
-            if($scope.listItem.length === 0) {
+        $scope.payment = async function (paymentMethod) {
+            if ($scope.listItem.length === 0) {
                 alert("Giỏ hàng trống")
                 return
             }
-            $http.put(`${url}/payment`)
-                .then(resp => {
+
+            if (paymentMethod === "paypal") {
+                const curUrl = "https://api.currencyapi.com/v3/latest?apikey=cur_live_cr1xQRu24tUzUoh1vjJEcg8keRZrjUU2JiLfCnKo";
+                let currencyValue = 0;
+                try {
+                    const response = await $http.get(curUrl);
+                    if (response.data && response.data.data && response.data.data.VND) {
+                        currencyValue = response.data.data.VND.value;
+                        console.log("VND Value:", currencyValue);
+                    } else {
+                        console.log("VND data not found");
+                        return;
+                    }
+                } catch (error) {
+                    console.error("Error fetching currency data:", error);
+                    return;
+                }
+
+                try {
+                    const paymentResponse = await $http.put(`${url}/payment-paypal?totalPrice=${$scope.totalPrice / currencyValue}&userName=${$scope.accountID}`);
+                    if (paymentResponse.data && paymentResponse.data.redirectUrl) {
+                        window.location.href = paymentResponse.data.redirectUrl;
+                    } else {
+                        $scope.loadCart($scope.accountID);
+                    }
+                } catch (error) {
+                    console.error(error);
                     $scope.loadCart($scope.accountID);
-                })
-                .catch(error => {
-                    $scope.loadCart($scope.accountID);
-                });
-            $scope.loadCart($scope.accountID);
+                }
+            }
+            if (paymentMethod === "cod") {
+                $http.put(`${url}/payment-cod`)
+                    .then(resp => {
+                        $scope.loadCart($scope.accountID);
+                    })
+                    .catch(error => {
+                        $scope.loadCart($scope.accountID);
+                    });
+                $scope.loadCart($scope.accountID);
+            }
         }
     }
 )

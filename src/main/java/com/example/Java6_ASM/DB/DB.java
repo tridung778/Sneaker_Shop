@@ -62,6 +62,8 @@ public class DB {
                 e.printStackTrace();
             }
 
+
+            System.out.println("Server is running...");
         };
     }
 }

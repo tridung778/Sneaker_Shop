@@ -40,11 +40,13 @@ public class MainController {
 		Optional<Product> item = productService.findById(id);
 		model.addAttribute("item", item.orElse(null));
 		model.addAttribute("page", "product/product-detail");
+		model.addAttribute("userInfo", accountService.getInfoAuth());
 		return "index";
 	}
 
 	@RequestMapping("/category")
 	public String productInCategory(Model model, @RequestParam("cid") Optional<UUID> cid) {
+		model.addAttribute("userInfo", accountService.getInfoAuth());
 		model.addAttribute("page", "product/product-category");
 		model.addAttribute("cates", categoryService.findAll());
 		if (cid.isPresent()) {
@@ -60,24 +62,28 @@ public class MainController {
 
 	@RequestMapping("/admin")
 	public String admin(Model model) {
+		model.addAttribute("userInfo", accountService.getInfoAuth());
 		model.addAttribute("addProduct", "admin/home.html");
 		return "admin-index";
 	}
 
 	@RequestMapping("/login")
 	public String login(Model model) {
+		model.addAttribute("userInfo", accountService.getInfoAuth());
 		model.addAttribute("page", "login/login");
 		return "login/login";
 	}
 
 	@RequestMapping("/signup")
 	public String signup(Model model) {
+		model.addAttribute("userInfo", accountService.getInfoAuth());
 		model.addAttribute("page", "login/signup");
 		return "login/signup";
 	}
 
 	@RequestMapping("/cart-index")
 	public String cart(Model model) {
+		model.addAttribute("userInfo", accountService.getInfoAuth());
 		model.addAttribute("page", "cart/cart-index");
 		model.addAttribute("userInfo", accountService.getInfoAuth());
 		return "index";

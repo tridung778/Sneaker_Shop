@@ -63,7 +63,9 @@
 								th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT')}"></span><b>₫</b>
 						</div>
 						<a class="text-decoration-none p-2 btn btn-outline-danger"
-							href="#">Thêm vào giỏ</a>
+							href="#"
+						   th:attr="ng-click='addItem(\''+${p.id}+'\');'"
+						>Thêm vào giỏ</a>
 					</div>
 				</div>
 			</div>

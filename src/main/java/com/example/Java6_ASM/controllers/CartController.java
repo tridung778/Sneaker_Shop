@@ -20,15 +20,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/cart")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class CartController {
 
     @Autowired
@@ -88,19 +90,9 @@ public class CartController {
     }
 
     // Payment
-    @PutMapping("/payment")
+    @PutMapping("/payment-cod")
     public ResponseEntity<String> payment() {
-        List<Cart> cartList = cartService.getAllItemInCart(accountService.getInfoAuth().getId());
-        Order order = orderService.createOrder(accountService.getInfoAuth(), PaymentMethod.COD, OrderStatus.PENDING, new Date());
-        cartList.forEach(cart -> {
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setPrice(cart.getPrice());
-            orderDetail.setQuantity(cart.getQuantity());
-            orderDetail.setProduct(productService.findById(cart.getProductId()).get());
-            orderDetail.setOrder(order);
-            orderDetailService.createOrderDetail(orderDetail);
-        });
-        cartService.deleteAllItemInCart();
+        pay(PaymentMethod.COD);
         return ResponseEntity.ok().body("Payment success");
     }
 
@@ -124,10 +116,12 @@ public class CartController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    //    Paypal payment
-// sb-6ctgf31057516@personal.example.com
-    @RequestMapping("/payment/paypal")
-    public RedirectView payment(@RequestParam("totalPrice") double totalPrice, @RequestParam("userName") String userName) {
+    // Paypal payment
+    // sb-fo7f331992187@personal.example.com
+    // r&o}V0Z>
+    @RequestMapping("/payment-paypal")
+    public Map<String, String> payment(@RequestParam("totalPrice") double totalPrice, @RequestParam("userName") String userName) {
+        Map<String, String> response = new HashMap<>();
         try {
             String cancelUrl = "http://localhost:8080/payment/paypal/cancel";
             String successUrl = "http://localhost:8080/payment/paypal/success";
@@ -136,20 +130,22 @@ public class CartController {
                     "USD",
                     "PAYPAL",
                     "sale",
-                    userName + "Thanh toán",
+                    userName + " Thanh toán",
                     cancelUrl,
                     successUrl
             );
-
+            pay(PaymentMethod.PAYPAL);
             for (Links links : payment.getLinks()) {
                 if (links.getRel().equals("approval_url")) {
-                    return new RedirectView(links.getHref());
+                    response.put("redirectUrl", links.getHref());
+                    return response;
                 }
             }
         } catch (PayPalRESTException e) {
             throw new RuntimeException(e);
         }
-        return new RedirectView("payment/paypal/error");
+        response.put("redirectUrl", "payment/paypal/error");
+        return response;
     }
 
     @GetMapping("/payment/paypal/success")
@@ -160,14 +156,12 @@ public class CartController {
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
             if (payment.getState().equals("approved")) {
-                model.addAttribute("router", "payment.jsp");
-                return "index";
+                return "redirect:/";
             }
         } catch (PayPalRESTException e) {
             throw new RuntimeException(e);
         }
-        model.addAttribute("router", "payment.jsp");
-        return "index";
+        return "redirect:/";
     }
 
 
@@ -181,6 +175,20 @@ public class CartController {
     @ResponseBody
     public String error() {
         return "error";
+    }
+
+    public void pay(PaymentMethod paymentMethod) {
+        List<Cart> cartList = cartService.getAllItemInCart(accountService.getInfoAuth().getId());
+        Order order = orderService.createOrder(accountService.getInfoAuth(), paymentMethod, OrderStatus.PENDING, accountService.getInfoAuth().getAddress());
+        cartList.forEach(cart -> {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setPrice(cart.getPrice());
+            orderDetail.setQuantity(cart.getQuantity());
+            orderDetail.setProduct(productService.findById(cart.getProductId()).get());
+            orderDetail.setOrder(order);
+            orderDetailService.createOrderDetail(orderDetail);
+        });
+        cartService.deleteAllItemInCart();
     }
 
 }

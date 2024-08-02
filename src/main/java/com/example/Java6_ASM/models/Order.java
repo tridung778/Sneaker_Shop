@@ -16,6 +16,8 @@ import java.util.Date;
 @Table(name = "orders")
 public class Order extends BaseModel {
 
+    private String address;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "created_at")
     Date createdAt = new Date();
