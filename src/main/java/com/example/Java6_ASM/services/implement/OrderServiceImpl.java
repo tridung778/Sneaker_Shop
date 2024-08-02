@@ -4,6 +4,7 @@ import com.example.Java6_ASM.enums.OrderStatus;
 import com.example.Java6_ASM.enums.PaymentMethod;
 import com.example.Java6_ASM.models.Account;
 import com.example.Java6_ASM.models.Order;
+import com.example.Java6_ASM.models.Product;
 import com.example.Java6_ASM.repositories.OrderRepository;
 import com.example.Java6_ASM.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -33,4 +36,15 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findByAccount(Account account) {
         return orderRepository.findByAccount(account);
     }
+
+	@Override
+	public List<Order> findByUsername(String username) {
+		return orderRepository.findByUsername(username);
+	}
+
+	@Override
+	public Order findById(UUID id) {
+		Optional<Order> order = orderRepository.findById(id);
+        return order.orElse(null);
+	}
 }

@@ -3,6 +3,7 @@ package com.example.Java6_ASM.controllers;
 import com.example.Java6_ASM.models.Product;
 import com.example.Java6_ASM.services.AccountService;
 import com.example.Java6_ASM.services.CategoryService;
+import com.example.Java6_ASM.services.OrderService;
 import com.example.Java6_ASM.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class MainController {
 	@Autowired
@@ -25,6 +28,9 @@ public class MainController {
 
 	@Autowired
 	AccountService accountService;
+
+	@Autowired
+	OrderService orderService;
 
 	@RequestMapping("/")
 	public String index(Model model) {
@@ -59,7 +65,6 @@ public class MainController {
 		return "index";
 	}
 
-
 	@RequestMapping("/admin")
 	public String admin(Model model) {
 		model.addAttribute("userInfo", accountService.getInfoAuth());
@@ -85,7 +90,31 @@ public class MainController {
 	public String cart(Model model) {
 		model.addAttribute("userInfo", accountService.getInfoAuth());
 		model.addAttribute("page", "cart/cart-index");
-		model.addAttribute("userInfo", accountService.getInfoAuth());
 		return "index";
 	}
+
+	@RequestMapping("/profile")
+	public String profile(Model model) {
+		model.addAttribute("userInfo", accountService.getInfoAuth());
+		model.addAttribute("page", "user/update-profile");
+		return "index";
+	}
+
+	@RequestMapping("/orderList")
+	public String orderList(Model model, HttpServletRequest request) {
+		model.addAttribute("userInfo", accountService.getInfoAuth());
+		model.addAttribute("page", "order/list");
+		String username = request.getRemoteUser();
+		model.addAttribute("orders", orderService.findByUsername(username));
+		return "index";
+	}
+
+	@RequestMapping("/order/{id}")
+	public String orderDetail(Model model, @PathVariable("id") UUID id) {
+		model.addAttribute("userInfo", accountService.getInfoAuth());
+		model.addAttribute("page", "order/detail");
+		model.addAttribute("order", orderService.findById(id));
+		return "index";
+	}
+
 }
