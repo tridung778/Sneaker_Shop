@@ -22,7 +22,7 @@
 					<td th:text="${order.orderStatus}"></td>
 					<td th:text="${order.paymentMethod}"></td>
 					<td th:text="${order.address}"></td>
-					<td><a th:href="@{'/order/'+ ${order.id}}"
+					<td><a th:href="@{'/order?id='+ ${order.id}}"
 						class="btn btn-outline-danger"> <i class="bi bi-search"></i>
 					</a></td>
 				</tr>
