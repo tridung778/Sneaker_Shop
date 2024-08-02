@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class MainController {
@@ -109,8 +108,8 @@ public class MainController {
 		return "index";
 	}
 
-	@RequestMapping("/order/{id}")
-	public String orderDetail(Model model, @PathVariable("id") UUID id) {
+	@RequestMapping("/order")
+	public String orderDetail(Model model, @RequestParam("id") UUID id) {
 		model.addAttribute("userInfo", accountService.getInfoAuth());
 		model.addAttribute("page", "order/detail");
 		model.addAttribute("order", orderService.findById(id));
