@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -118,6 +120,7 @@ public class MainController {
 
 	@RequestMapping("/purchase")
 	public String purchase(Model model) {
+		model.addAttribute("createdAt", new Date());
 		model.addAttribute("userInfo", accountService.getInfoAuth());
 		model.addAttribute("page", "order/purchase");
 		return "index";
