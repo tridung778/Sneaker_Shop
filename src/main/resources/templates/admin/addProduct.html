@@ -1,118 +1,137 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Product Management</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .form-label {
-            font-weight: bold;
-        }
-        .table th, .table td {
-            vertical-align: middle;
-            text-align: center;
-        }
-        .table img {
-            max-width: 100px;
-            height: auto;
-        }
-        .btn-sm {
-            font-size: 0.875em;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Product Management</title>
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<style>
+.form-label {
+	font-weight: bold;
+}
+
+.table th, .table td {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.table img {
+	max-width: 100px;
+	height: auto;
+}
+
+.btn-sm {
+	font-size: 0.875em;
+}
+</style>
 </head>
 <body ng-app="app" ng-controller="ctrl">
-<div class="container mt-5">
-    <h1 class="mb-4 text-center">Product Management</h1>
+	<div class="container mt-5">
+		<h1 class="mb-4 text-center">Product Management</h1>
 
-    <!-- Form for Add/Edit Product -->
-    <form class="mb-4">
-        <input type="hidden" ng-model="form.id">
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="name" class="form-label">Product Name</label>
-                <input type="text" class="form-control" id="name" ng-model="form.name" required>
-            </div>
-            <div class="col-md-6">
-                <label for="image" class="form-label">Image URL</label>
-                <input type="file" class="form-control" id="image" ng-model="form.image">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="price" class="form-label">Price</label>
-                <input type="number" class="form-control" id="price" ng-model="form.price" step="0.01" required>
-            </div>
-            <div class="col-md-6">
-                <label for="quantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" id="quantity" ng-model="form.quantity" required>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-md-12">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" ng-model="form.description"></textarea>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-md-6 form-check">
-                <input type="checkbox" class="form-check-input" id="available" ng-model="form.available">
-                <label for="available" class="form-check-label">Available</label>
-            </div>
-            <div class="col-md-6">
-                <label for="category" class="form-label">Category</label>
-                <input type="text" class="form-control" id="category" ng-model="form.category" required>
-            </div>
-        </div>
-        <div class="d-flex flex-wrap">
-            <button type="submit" ng-click="create()" class="btn btn-primary me-2 mb-2">Create</button>
-            <button type="button" ng-click="update()" class="btn btn-warning me-2 mb-2">Update</button>
-            <button type="button" ng-click="delete(form.id)" class="btn btn-danger me-2 mb-2">Delete</button>
-            <button type="button" ng-click="reset()" class="btn btn-secondary me-2 mb-2">Reset</button>
-        </div>
-    </form>
+		<!-- Form for Add/Edit Product -->
+		<form class="mb-4">
+			<input type="hidden" ng-model="form.id">
+			<div class="row mb-3">
+				<div class="col-md-6">
+					<label for="name" class="form-label">Product Name</label> <input
+						type="text" class="form-control" id="name" ng-model="form.name"
+						required>
+				</div>
+				<div class="col-md-6">
+					<label for="image" class="form-label">Image URL</label> <input
+						type="file" class="form-control" id="image" ng-model="form.image">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-6">
+					<label for="price" class="form-label">Price</label> <input
+						type="number" class="form-control" id="price"
+						ng-model="form.price" step="0.01" required>
+				</div>
+				<div class="col-md-6">
+					<label for="quantity" class="form-label">Quantity</label> <input
+						type="number" class="form-control" id="quantity"
+						ng-model="form.quantity" required>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<label for="description" class="form-label">Description</label>
+					<textarea class="form-control" id="description"
+						ng-model="form.description"></textarea>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-6 form-check">
+					<input type="checkbox" class="form-check-input" id="available"
+						ng-model="form.available"> <label for="available"
+						class="form-check-label">Available</label>
+				</div>
+				<div class="col-md-6">
+					<label for="category" class="form-label">Category</label> <select
+						class="form-control" ng-model="form.category.id">
+						<option ng-repeat="c in cates" ng-value="c.id" value="id">{{c.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="d-flex flex-wrap">
+				<button type="submit" ng-click="create()"
+					class="btn btn-primary me-2 mb-2">Create</button>
+				<button type="button" ng-click="update()"
+					class="btn btn-warning me-2 mb-2">Update</button>
+				<button type="button" ng-click="delete(form.id)"
+					class="btn btn-danger me-2 mb-2">Delete</button>
+				<button type="button" ng-click="reset()"
+					class="btn btn-secondary me-2 mb-2">Reset</button>
+			</div>
+		</form>
 
-    <!-- Product List Table -->
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead class="table-light">
-            <tr>
-                <th>Product Name</th>
-                <th>Image</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Description</th>
-                <th>Available</th>
-                <th>Category</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="pro in items">
-                <td>{{pro.name}}</td>
-                <td><img ng-src="{{pro.image}}" alt="Product Image"></td>
-                <td>{{pro.price | currency}}</td>
-                <td>{{pro.quantity}}</td>
-                <td>{{pro.description}}</td>
-                <td>
-                    <span ng-if="pro.available" class="badge bg-success">Yes</span>
-                    <span ng-if="!pro.available" class="badge bg-danger">No</span>
-                </td>
-                <td>{{pro.category.name}}</td>
-                <td>
-                    <button ng-click="edit(pro.id)" class="btn btn-primary btn-sm me-2 mb-2">Edit</button>
-                    <button ng-click="delete(pro.id)" class="btn btn-danger btn-sm mb-2">Delete</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+		<!-- Product List Table -->
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover">
+				<thead class="table-light">
+					<tr>
+						<th>Product Name</th>
+						<th>Image</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Description</th>
+						<th>Available</th>
+						<th>Category</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in items">
+						<td>{{item.name}}</td>
+						<td><img th:src="@{|/images/{{item.image}}|}" width="100px"
+							height="100px"></td>
+						<td>{{item.price | currency}}</td>
+						<td>{{item.quantity}}</td>
+						<td>{{item.description}}</td>
+						<td><span ng-if="item.available" class="badge bg-success">Yes</span>
+							<span ng-if="!item.available" class="badge bg-danger">No</span></td>
+						<td>{{item.category.name}}</td>
+						<td>
+							<button ng-click=edit(item)
+								class="btn btn-primary btn-sm me-2 mb-2">Edit</button>
+							<button ng-click=delete(item) class="btn btn-danger btn-sm mb-2">Delete</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-<script src="../js/product.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script src="../js/product.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </body>
 </html>
