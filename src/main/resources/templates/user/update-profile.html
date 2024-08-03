@@ -1,36 +1,35 @@
-<div class="container">
+<form enctype="multipart/form-data"
+      th:attr="ng-init='loadAccount(\''+${userInfo.id}+'\');'">
+    <div class="container">
         <h3 class="fs-3 text-center text-danger fw-bold my-4">Cập nhật hồ sơ</h3>
-        <div class="row d-flex justify-content-center align-items-center mb-5">
+        <div class="row d-flex justify-content-center align-items-center mb-5" >
             <div class="col-sm-4 text-center">
-                <label for="image"> <img src="./images/slide-1.jpg" class="rounded-circle"
-                        style="max-width: 360px; height: 360px">
+                <label for="image">
+                    <img ng-src="{{account.photo}}" class="rounded-circle" style="max-width: 360px; height: 360px">
                 </label>
-                <input type="file" placeholder="Chọn" id="image" hidden>
+                <input type="file" placeholder="Chọn" id="image" name="photo" hidden>
             </div>
             <div class="col-sm-5">
                 <div class="form-group mb-3">
                     <label>Tên đăng nhập:</label>
-                    <input class="form-control" type="text">
+                    <input ng-model="account.username" class="form-control" type="text" readonly>
                 </div>
                 <div class="form-group mb-3">
-                    <label>Họ và tên:</label>
-                    <input class="form-control" type="text">
+                    <label for="fullName">Họ và tên:</label>
+                    <input ng-model="account.name" class="form-control" type="text" id="fullName" name="name">
                 </div>
                 <div class="form-group mb-3">
-                    <label>Email:</label>
-                    <input class="form-control" type="email">
+                    <label for="email">Email:</label>
+                    <input ng-model="account.email" class="form-control" type="email" id="email" name="email">
                 </div>
-                <div class="form-group  mb-3">
-                    <label>Số điện thoại:</label>
-                    <input class="form-control" type="text">
-                </div>
-                <div class="form-group">
-                    <label>Địa chỉ:</label>
-                    <textarea name="" class="form-control"></textarea>
+                <div class="form-group mb-3">
+                    <label for="phoneNumber">Số điện thoại:</label>
+                    <input ng-model="account.phone" class="form-control" type="text" id="phoneNumber" name="phone">
                 </div>
             </div>
         </div>
         <div class="text-center mb-4">
-            <button class="btn btn-outline-danger px-4 fs-5">Cập nhật</button>
+            <button class="btn btn-outline-danger px-4 fs-5" type="submit" ng-click="updateAccount()">Cập nhật</button>
         </div>
     </div>
+</form>
