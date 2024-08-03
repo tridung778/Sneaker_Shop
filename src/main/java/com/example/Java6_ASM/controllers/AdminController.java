@@ -42,8 +42,8 @@ public class AdminController {
         return "admin-index";
     }
 
-//    @RequestMapping("/admin")
-//    public String admin(Model model) {
-//        return "admin-index";
-//    }
+	@RequestMapping("/admin/index")
+	public String admin(Model model) {
+		return "admin-index";
+	}
 }
