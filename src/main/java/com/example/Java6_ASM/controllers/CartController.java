@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -147,23 +146,6 @@ public class CartController {
         response.put("redirectUrl", "payment/paypal/error");
         return response;
     }
-
-    @GetMapping("/payment/paypal/success")
-    public String success(Model model,
-                          @RequestParam("paymentId") String paymentId,
-                          @RequestParam("PayerID") String payerId
-    ) {
-        try {
-            Payment payment = paypalService.executePayment(paymentId, payerId);
-            if (payment.getState().equals("approved")) {
-                return "redirect:/";
-            }
-        } catch (PayPalRESTException e) {
-            throw new RuntimeException(e);
-        }
-        return "redirect:/";
-    }
-
 
     @GetMapping("/payment/paypal/cancel")
     @ResponseBody
