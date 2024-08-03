@@ -60,7 +60,7 @@ public class AccountRESTController {
         return ResponseEntity.ok(savedAccount);
     }
 
-    @RequestMapping("/oauth2/login/success")
+    @RequestMapping("/security/login/success")
     public String successOAuth2(OAuth2AuthenticationToken oauth2) {
         securityConfig.loginFromOauth2(oauth2);
         return "redirect:/";
