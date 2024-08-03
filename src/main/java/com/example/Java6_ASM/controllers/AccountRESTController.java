@@ -1,10 +1,12 @@
 package com.example.Java6_ASM.controllers;
 
+import com.example.Java6_ASM.SecurityConfig;
 import com.example.Java6_ASM.models.Account;
 import com.example.Java6_ASM.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +18,10 @@ import java.util.UUID;
 public class AccountRESTController {
     @Autowired
     AccountService service;
+
+    @Autowired
+    SecurityConfig securityConfig;
+
     BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 
     @GetMapping()
@@ -52,5 +58,11 @@ public class AccountRESTController {
 
         Account savedAccount = service.createAccount(existingAccount);
         return ResponseEntity.ok(savedAccount);
+    }
+
+    @RequestMapping("/oauth2/login/success")
+    public String successOAuth2(OAuth2AuthenticationToken oauth2) {
+        securityConfig.loginFromOauth2(oauth2);
+        return "redirect:/";
     }
 }
