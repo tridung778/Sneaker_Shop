@@ -55,6 +55,7 @@ app.controller('myController', function ($scope, $http) {
         }
 
         $scope.payment = async function (paymentMethod) {
+
             if ($scope.listItem.length === 0) {
                 alert("Giỏ hàng trống");
                 return;

@@ -6,18 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 
 @Configuration
 @EnableWebSecurity
@@ -49,15 +50,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		});
 	}
 
-//	public void loginFromOauth2(OAuth2AuthenticationToken oauth2) {
-//		String email = oauth2.getPrincipal().getAttribute("email");
-//		String pass = Long.toHexString(System.currentTimeMillis());
-//
-//		UserDetails user = User.withUsername(email).password(pe.encode(pass)).roles("GUEST").build();
-//		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null,
-//				user.getAuthorities());
-//		SecurityContextHolder.getContext().setAuthentication(auth);
-//	}
+	public void loginFromOauth2(OAuth2AuthenticationToken oauth2) {
+		String email = oauth2.getPrincipal().getAttribute("email");
+		String pass = Long.toHexString(System.currentTimeMillis());
+
+		UserDetails user = User.withUsername(email).password(pe.encode(pass)).roles("GUEST").build();
+		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null,
+				user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(auth);
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -77,8 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.exceptionHandling().accessDeniedPage("/unauthoried");
 		http.logout().logoutUrl("/security/logoff").logoutSuccessUrl("/logoff-success");
 
-//		http.oauth2Login().loginPage("/security/login/form").defaultSuccessUrl("/oauth2/login/success", true)
-//				.failureUrl("/security/login/error").authorizationEndpoint().baseUri("/oauth2/authorization");
+		http.oauth2Login().loginPage("/security/login/form").defaultSuccessUrl("/security/login/success", true)
+				.failureUrl("/security/login/error").authorizationEndpoint().baseUri("/oauth2/authorization");
 	}
 
 	@Override
