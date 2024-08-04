@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,18 +27,37 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public boolean isFieldExists(String fieldName, String value) {
+        Optional<Account> account;
+        switch (fieldName) {
+            case "username":
+                account = accountRepository.findByUsername(value);
+                break;
+            case "email":
+                account = accountRepository.findByEmail(value);
+                break;
+            case "phone":
+                account = accountRepository.findByPhone(value);
+                break;
+            default:
+                throw new IllegalArgumentException("Field name not recognized");
+        }
+        return account.isPresent();
+    }
+
+    @Override
     public Account findById(UUID id) {
         return accountRepository.findById(id).orElse(null);
     }
 
     @Override
     public Account findByUsername(String username) {
-        return accountRepository.findByUsername(username);
+        return accountRepository.handelFindByUserName(username);
     }
 
     @Override
     public Account getInfoAuth() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return accountRepository.findByUsername(auth.getName());
+        return accountRepository.handelFindByUserName(auth.getName());
     }
 }

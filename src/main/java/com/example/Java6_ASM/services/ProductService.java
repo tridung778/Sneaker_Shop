@@ -27,4 +27,6 @@ public interface ProductService {
     Optional<Product> findById(UUID id);
 
 	List<Product> findByCategoryId(UUID cid);
+
+    Product findByName(String name);
 }
