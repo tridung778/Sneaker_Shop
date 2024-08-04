@@ -16,6 +16,7 @@ public interface AccountService {
 	Account findByUsername(String id);
 
 	Account getInfoAuth();
+	
 
 	boolean isFieldExists(String fieldName, String value);
 

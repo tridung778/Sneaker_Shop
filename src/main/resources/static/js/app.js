@@ -146,5 +146,19 @@ app.controller('myController', function($scope, $http) {
 			});
 		})
 	}
+
+	$scope.imageChaged = function(files) {
+		var data = new FormData();
+		data.append('file', files[0]);
+		$http.post('/rest/upload/images', data, {
+			transformRequest: angular.identity,
+			headers: { 'Content-Type': undefined }
+		}).then(resp => {
+			$scope.account.photo = resp.data.name;
+		}).catch(error => {
+			alert("Lỗi hình ảnh!");
+			console.log(error);
+		})
+	}
 }
 )
