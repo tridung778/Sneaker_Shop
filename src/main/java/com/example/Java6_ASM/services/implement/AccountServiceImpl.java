@@ -60,4 +60,14 @@ public class AccountServiceImpl implements AccountService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return accountRepository.handelFindByUserName(auth.getName());
     }
+
+	@Override
+	public Account update(Account account) {
+		return accountRepository.save(account);
+	}
+
+	@Override
+	public void delete(UUID id) {
+		accountRepository.deleteById(id);
+	}
 }

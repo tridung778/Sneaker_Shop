@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Category Management</title>
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<style>
+.form-label {
+	font-weight: bold;
+}
+
+.table th, .table td {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.table img {
+	max-width: 100px;
+	height: auto;
+}
+
+.btn-sm {
+	font-size: 0.875em;
+}
+</style>
+</head>
+<body ng-app="myapp" ng-controller="myctrl">
+	<div class="container mt-5">
+		<h1 class="mb-4 text-center fw-bold text-danger">Quản Lý Danh Mục
+			Sản Phẩm</h1>
+
+		<div class="my-5">
+			<div class="d-flex justify-content-center">
+				<div class="w-50">
+					<div class="form-group">
+						<div>Tên danh mục:</div>
+						<input ng-model="form.name" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="mt-4 d-flex justify-content-center gap-3">
+				<button ng-click="create()" class="btn btn-outline-primary">
+					<i class="bi bi-plus-circle-fill"></i> Thêm
+				</button>
+				<button ng-click="update()" class="btn btn-outline-success">
+					<i class="bi bi-save-fill"></i> Cập nhật
+				</button>
+				<button ng-click="delete(form)" class="btn btn-outline-danger">
+					<i class="bi bi-trash3-fill"></i> Xóa
+				</button>
+				<button ng-click="reset()" class="btn btn-outline-info">
+					<i class="bi bi-arrow-clockwise"></i> Mới
+				</button>
+			</div>
+		</div>
+
+		<div class="table-responsive">
+			<table class="table table-bordered mt-3 text-center">
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Mã danh mục</th>
+						<th>Tên danh mục</th>
+						<th>Hành động</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in pager.items">
+						<td>{{$index + 1}}</td>
+						<td>{{item.id}}</td>
+						<td>{{item.name}}</td>
+						<td>
+							<button ng-click=edit(item) class="btn btn-primary btn-sm mb-2">Edit</button>
+							<button ng-click=delete(item) class="btn btn-danger btn-sm mb-2">Delete</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="text-center">
+				<button ng-click="pager.first()" class="btn btn-outline-danger">
+					<i class="bi bi-arrow-up-circle-fill"></i>
+				</button>
+				<button ng-click="pager.prev()" class="btn btn-outline-primary">
+					<i class="bi bi-arrow-left-circle-fill"></i>
+				</button>
+				<button class="btn btn-outline-success">{{pager.page + 1}}
+					of {{pager.count}}</button>
+				<button ng-click="pager.next()" class="btn btn-outline-primary">
+					<i class="bi bi-arrow-right-circle-fill"></i>
+				</button>
+				<button ng-click="pager.last()" class="btn btn-outline-danger">
+					<i class="bi bi-arrow-down-circle-fill"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="../js/category.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</body>
+</html>

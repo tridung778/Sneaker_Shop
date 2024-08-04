@@ -47,4 +47,9 @@ public class OrderServiceImpl implements OrderService {
 		Optional<Order> order = orderRepository.findById(id);
         return order.orElse(null);
 	}
+
+	@Override
+	public List<Order> findAll() {
+		return orderRepository.findAll();
+	}
 }
