@@ -35,6 +35,9 @@ public class MainController {
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    OrderDetailService orderDetailService;
+
     private final PaypalService paypalService;
 
     @RequestMapping("/")
@@ -77,6 +80,9 @@ public class MainController {
     @RequestMapping("/admin")
     public String admin(Model model) {
         model.addAttribute("userInfo", accountService.getInfoAuth());
+        model.addAttribute("totalAccount", accountService.totalAccount());
+        model.addAttribute("totalOrder", orderService.totalOrder());
+        model.addAttribute("totalAmount", orderDetailService.totalAmount());
         model.addAttribute("addProduct", "admin/home.html");
         return "admin-index";
     }
