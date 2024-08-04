@@ -1,10 +1,17 @@
 package com.example.Java6_ASM.controllers;
 
 import com.example.Java6_ASM.SecurityConfig;
+import com.example.Java6_ASM.enums.Role;
+import com.example.Java6_ASM.models.Account;
 import com.example.Java6_ASM.services.AccountService;
 import com.example.Java6_ASM.services.CategoryService;
 import com.example.Java6_ASM.services.ProductService;
+
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +29,9 @@ public class SecurityController {
 
 	@Autowired
 	AccountService accountService;
+
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	@RequestMapping("/security/login/form")
 	public String loginForm(Model md) {
@@ -52,4 +62,21 @@ public class SecurityController {
 		return "redirect:/";
 	}
 
+	@RequestMapping("/security/login/success")
+	public String successOAuth2(OAuth2AuthenticationToken oauth2, Model model) {
+		
+		String randomPassword = UUID.randomUUID().toString();
+		String encodedPassword = pe.encode(randomPassword);
+
+		Account account = new Account();
+		account.setEmail(oauth2.getPrincipal().getAttribute("email"));
+		account.setName(oauth2.getPrincipal().getAttribute("name"));
+		account.setUsername(oauth2.getPrincipal().getAttribute("sub"));
+		account.setPhoto(oauth2.getPrincipal().getAttribute("avatar"));
+		account.setPassword(encodedPassword);
+		account.setRole(Role.GUEST);
+		accountService.createAccount(account);
+		model.addAttribute("userInfo", accountService.getInfoAuth());
+		return "redirect:/";
+	}
 }
