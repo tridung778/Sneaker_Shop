@@ -4,7 +4,6 @@ import com.example.Java6_ASM.enums.OrderStatus;
 import com.example.Java6_ASM.enums.PaymentMethod;
 import com.example.Java6_ASM.models.Account;
 import com.example.Java6_ASM.models.Order;
-import com.example.Java6_ASM.models.Product;
 import com.example.Java6_ASM.repositories.OrderRepository;
 import com.example.Java6_ASM.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +51,14 @@ public class OrderServiceImpl implements OrderService {
 	public List<Order> findAll() {
 		return orderRepository.findAll();
 	}
+
+    @Override
+    public int totalOrder() {
+        int total = 0;
+        List<Order> orders = orderRepository.findAll();
+        for (Order order : orders) {
+            total++;
+        }
+        return total;
+    }
 }

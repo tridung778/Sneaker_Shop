@@ -70,4 +70,14 @@ public class AccountServiceImpl implements AccountService {
 	public void delete(UUID id) {
 		accountRepository.deleteById(id);
 	}
+
+    @Override
+    public int totalAccount() {
+        int total = 0;
+        List<Account> accounts = accountRepository.findAll();
+        for (Account account : accounts) {
+            total++;
+        }
+        return total;
+    }
 }
