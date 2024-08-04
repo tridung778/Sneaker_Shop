@@ -4,8 +4,10 @@ import com.example.Java6_ASM.enums.OrderStatus;
 import com.example.Java6_ASM.enums.PaymentMethod;
 import com.example.Java6_ASM.models.Account;
 import com.example.Java6_ASM.models.Order;
+import com.example.Java6_ASM.models.Product;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface OrderService {
 
@@ -13,4 +15,7 @@ public interface OrderService {
 
     List<Order> findByAccount(Account account);
 
+    List<Order> findByUsername(String username);
+    
+    Order findById(UUID id);
 }

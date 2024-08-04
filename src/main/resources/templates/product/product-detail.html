@@ -30,7 +30,7 @@
 			<div class="mt-4 float-lg-start text-center">
 				<a href="" class="btn btn-outline-danger btn py-1 me-1"
 					style="width: 250px;"> <i class="bi bi-cart-plus"></i> <br>
-					<p class="fs-6 fw-bold m-0">Thêm vào giỏ</p>
+					<p class="fs-6 fw-bold m-0"  th:attr="ng-click='addItem(\''+${id}+'\');'">Thêm vào giỏ</p>
 				</a>
 			</div>
 		</div>
@@ -64,7 +64,6 @@
 						</div>
 						<a class="text-decoration-none p-2 btn btn-outline-danger"
 							href="#"
-						   th:attr="ng-click='addItem(\''+${p.id}+'\');'"
 						>Thêm vào giỏ</a>
 					</div>
 				</div>
