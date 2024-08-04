@@ -9,14 +9,21 @@
                 </div>
                 <div class="col-sm-7 co-lg-7 p-0">
                     <div class="d-lg-flex align-items-center justify-content-center d-sm-block d-none">
-                        <div>
+                        <form action="/search" method="get" class="d-flex">
                             <input class="rounded-start lh-lg border-white p-2" type="search"
-                                   placeholder="Tìm kiếm..." style="outline: none; width: 450px; height: 40px"/>
-                        </div>
-                        <a href="#" class="btn_Search text-white d-flex align-items-center rounded-end">
-                            <i class=" bi bi-search m-4"></i>
-                        </a>
+                                   placeholder="Tìm kiếm..." style="outline: none; width: 450px; height: 40px"
+                                   list="mylist" name="keyword" />
+                            <button type="submit" class="btn_Search text-white d-flex align-items-center rounded-end">
+                                <i class="bi bi-search m-4"></i>
+                            </button>
+                            <datalist id="mylist">
+                                <option th:each="product : ${items}" th:value="${product.name}">
+                                    <div th:text="${product.price}"></div>
+                                </option>
+                            </datalist>
+                        </form>
                     </div>
+
                 </div>
                 <div class="col-sm-3 co-lg-3 p-0 d-flex gap-4 justify-content-end">
                     <div class="dropdown d-sm-block d-none">

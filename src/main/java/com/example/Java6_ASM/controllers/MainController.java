@@ -49,6 +49,8 @@ public class MainController {
     @RequestMapping("/{id}")
     public String productDetail(Model model, @PathVariable("id") UUID id) {
         Optional<Product> item = productService.findById(id);
+        List<Product> list = productService.findAll();
+        model.addAttribute("items", list);
         model.addAttribute("item", item.orElse(null));
         model.addAttribute("page", "product/product-detail");
         model.addAttribute("userInfo", accountService.getInfoAuth());
@@ -67,6 +69,8 @@ public class MainController {
             List<Product> list = productService.findAll();
             model.addAttribute("items", list);
         }
+        List<Product> list = productService.findAll();
+        model.addAttribute("items", list);
         return "index";
     }
 
@@ -94,6 +98,8 @@ public class MainController {
     @RequestMapping("/cart-index")
     public String cart(Model model) {
         model.addAttribute("userInfo", accountService.getInfoAuth());
+        List<Product> list = productService.findAll();
+        model.addAttribute("items", list);
         model.addAttribute("page", "cart/cart-index");
         return "index";
     }
@@ -110,6 +116,8 @@ public class MainController {
     public String orderList(Model model, HttpServletRequest request) {
         model.addAttribute("userInfo", accountService.getInfoAuth());
         model.addAttribute("page", "order/list");
+        List<Product> list = productService.findAll();
+        model.addAttribute("items", list);
         String username = request.getRemoteUser();
         model.addAttribute("orders", orderService.findByUsername(username));
         return "index";
@@ -128,6 +136,18 @@ public class MainController {
         model.addAttribute("createdAt", new Date());
         model.addAttribute("userInfo", accountService.getInfoAuth());
         model.addAttribute("page", "order/purchase");
+        return "index";
+    }
+
+    @RequestMapping("/search")
+    public String search(Model model, @RequestParam("keyword") String keyword) {
+        Product product = productService.findByName(keyword);
+        List<Product> list = productService.findAll();
+        model.addAttribute("items", list);
+        Optional<Product> item = productService.findById(product.getId());
+        model.addAttribute("item", item.orElse(null));
+        model.addAttribute("page", "product/product-detail");
+        model.addAttribute("userInfo", accountService.getInfoAuth());
         return "index";
     }
 

@@ -85,4 +85,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findByCategoryId(UUID cid) {
 		return productRepository.findByCategoryId(cid);
 	}
+
+    @Override
+    public Product findByName(String name) {
+        return productRepository.findByName(name);
+    }
 }
