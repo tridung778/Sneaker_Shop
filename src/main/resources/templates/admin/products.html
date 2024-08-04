@@ -9,39 +9,63 @@
 	crossorigin="anonymous" />
 </head>
 <body ng-app="app" ng-controller="ctrl">
-	<div class="container">
-		<h1>Product Management</h1>
-		<a class="btn btn-primary" th:href="@{/admin/addProduct}">Add
-			Product</a>
-		<table class="table table-bordered mt-3">
-			<thead>
-				<tr>
-					<th>Product Name</th>
-					<th>Image</th>
-					<th>Price</th>
-					<th>Quantity</th>
-					<th>Description</th>
-					<th>Available</th>
-					<th>Category</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody class="text-center">
-				<tr ng-repeat="item in items">
-					<td>{{item.name}}</td>
-					<td><img th:src="@{|/images/{{item.image}}|}"  width="100px" height="100px" ></td>
-					<td>{{item.price | currency}}</td>
-					<td>{{item.quantity}}</td>
-					<td>{{item.description}}</td>
-					<td><span ng-if="item.available" class="badge bg-success">Yes</span>
-						<span ng-if="!item.available" class="badge bg-danger">No</span></td>
-					<td>{{item.category.name}}</td>
-					<td>
-						<button ng-click=delete(item) class="btn btn-danger btn-sm mb-2">Delete</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="container mt-5">
+		<h1 class="mb-4 text-center fw-bold text-danger">Danh Sách Sản
+			Phẩm</h1>
+		<!-- <a class="btn btn-primary" th:href="@{/admin/addProduct}">Add
+			Product</a> -->
+		<div class="table-responsive">
+			<table class="table table-bordered mt-3 text-center">
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Tên sản phẩm</th>
+						<th>Ảnh</th>
+						<th>Giá</th>
+						<th>Số lượng</th>
+						<th>Ngày tạo</th>
+						<th>Mô tả</th>
+						<th>Có sẵn</th>
+						<th>Danh mục</th>
+						<th>Hành động</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in pager.items">
+						<td>{{$index + 1}}</td>
+						<td>{{item.name}}</td>
+						<td><img th:src="@{|/images/{{item.image}}|}" width="100px"
+							height="100px"></td>
+						<td>{{item.price | number}}đ</td>
+						<td>{{item.quantity}}</td>
+						<td>{{item.createdAt | date:'dd/MM/yyyy'}}</td>
+						<td>{{item.description}}</td>
+						<td><span ng-if="item.available" class="badge bg-success">Yes</span>
+							<span ng-if="!item.available" class="badge bg-danger">No</span></td>
+						<td>{{item.category.name}}</td>
+						<td>
+							<button ng-click=delete(item) class="btn btn-danger btn-sm mb-2">Delete</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="text-center">
+				<button ng-click="pager.first()" class="btn btn-outline-danger">
+					<i class="bi bi-arrow-up-circle-fill"></i>
+				</button>
+				<button ng-click="pager.prev()" class="btn btn-outline-primary">
+					<i class="bi bi-arrow-left-circle-fill"></i>
+				</button>
+				<button class="btn btn-outline-success">{{pager.page + 1}}
+					of {{pager.count}}</button>
+				<button ng-click="pager.next()" class="btn btn-outline-primary">
+					<i class="bi bi-arrow-right-circle-fill"></i>
+				</button>
+				<button ng-click="pager.last()" class="btn btn-outline-danger">
+					<i class="bi bi-arrow-down-circle-fill"></i>
+				</button>
+			</div>
+		</div>
 	</div>
 </body>
 <script src="../js/product.js"></script>

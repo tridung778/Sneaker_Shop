@@ -28,100 +28,139 @@
 </head>
 <body ng-app="app" ng-controller="ctrl">
 	<div class="container mt-5">
-		<h1 class="mb-4 text-center">Product Management</h1>
+		<h1 class="mb-4 text-center fw-bold text-danger">Quản Lý Sản Phẩm</h1>
 
-		<!-- Form for Add/Edit Product -->
-		<form class="mb-4">
-			<input type="hidden" ng-model="form.id">
-			<div class="row mb-3">
-				<div class="col-md-6">
-					<label for="name" class="form-label">Product Name</label> <input
-						type="text" class="form-control" id="name" ng-model="form.name"
-						required>
+		<div class="my-5">
+			<div class="row">
+				<input type="hidden" ng-model="form.id">
+				<div class="col-sm-4 text-center">
+					<label for="image"> <img class="rounded object-fit-cover"
+						ng-src="{{'/images/' + form.image}}"
+						style="max-width: 350px; height: 320px" alt="Chọn ảnh sản phẩm">
+					</label> <input type="file" class="form-control" id="image"
+						onchange="angular.element(this).scope().imageChaged(this.files)"
+						hidden>
 				</div>
-				<div class="col-md-6">
-					<label for="image" class="form-label">Image URL</label> <input
-						type="file" class="form-control" id="image" ng-model="form.image">
+				<div class="col-sm-8">
+					<div class="row mb-3">
+						<div class="form-group col-sm-6">
+							<div>Tên sản phẩm:</div>
+							<input ng-model="form.name" class="form-control">
+						</div>
+						<div class="form-group col-sm-6">
+							<div>Giá:</div>
+							<input ng-model="form.price" class="form-control">
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="form-group col-sm-6">
+							<div>Số lượng:</div>
+							<input ng-model="form.quantity" class="form-control">
+						</div>
+						<div class="form-group col-sm-6">
+							<div>Danh mục sản phẩm:</div>
+							<select ng-model="form.category.id" class="form-control">
+								<option ng-repeat="c in cates" ng-value="c.id">{{c.name}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="form-group col-sm-6">
+							<div>Ngày tạo:</div>
+							<input ng-model="form.createdAt" type="date" class="form-control"
+								id="image">
+						</div>
+						<div class="form-group col-sm-6">
+							<div>Sản phẩm đã có sẵn?</div>
+							<div class="form-control">
+								<label class="radio-inline"> <input
+									ng-model="form.available" ng-value="true" name="available"
+									type="radio"> Có
+								</label> <label class="radio-inline"> <input
+									ng-model="form.available" ng-value="false" name="available"
+									type="radio"> Không
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="form-group col-sm-12">
+							<div>Mô tả:</div>
+							<textarea class="form-control" id="description"
+								ng-model="form.description"></textarea>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="row mb-3">
-				<div class="col-md-6">
-					<label for="price" class="form-label">Price</label> <input
-						type="number" class="form-control" id="price"
-						ng-model="form.price" step="0.01" required>
-				</div>
-				<div class="col-md-6">
-					<label for="quantity" class="form-label">Quantity</label> <input
-						type="number" class="form-control" id="quantity"
-						ng-model="form.quantity" required>
-				</div>
+			<div class="mt-4 d-flex justify-content-center gap-3">
+				<button ng-click="create()" class="btn btn-outline-primary">
+					<i class="bi bi-plus-circle-fill"></i> Thêm
+				</button>
+				<button ng-click="update()" class="btn btn-outline-success">
+					<i class="bi bi-save-fill"></i> Cập nhật
+				</button>
+				<button ng-click="delete(form)" class="btn btn-outline-danger">
+					<i class="bi bi-trash3-fill"></i> Xóa
+				</button>
+				<button ng-click="reset()" class="btn btn-outline-info">
+					<i class="bi bi-arrow-clockwise"></i> Mới
+				</button>
 			</div>
-			<div class="row mb-3">
-				<div class="col-md-12">
-					<label for="description" class="form-label">Description</label>
-					<textarea class="form-control" id="description"
-						ng-model="form.description"></textarea>
-				</div>
-			</div>
-			<div class="row mb-3">
-				<div class="col-md-6 form-check">
-					<input type="checkbox" class="form-check-input" id="available"
-						ng-model="form.available"> <label for="available"
-						class="form-check-label">Available</label>
-				</div>
-				<div class="col-md-6">
-					<label for="category" class="form-label">Category</label> <select
-						class="form-control" ng-model="form.category.id">
-						<option ng-repeat="c in cates" ng-value="c.id" value="id">{{c.name}}</option>
-					</select>
-				</div>
-			</div>
-			<div class="d-flex flex-wrap">
-				<button type="submit" ng-click="create()"
-					class="btn btn-primary me-2 mb-2">Create</button>
-				<button type="button" ng-click="update()"
-					class="btn btn-warning me-2 mb-2">Update</button>
-				<button type="button" ng-click="delete(form.id)"
-					class="btn btn-danger me-2 mb-2">Delete</button>
-				<button type="button" ng-click="reset()"
-					class="btn btn-secondary me-2 mb-2">Reset</button>
-			</div>
-		</form>
+		</div>
 
 		<!-- Product List Table -->
 		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead class="table-light">
+			<table class="table table-bordered mt-3 text-center">
+				<thead>
 					<tr>
-						<th>Product Name</th>
-						<th>Image</th>
-						<th>Price</th>
-						<th>Quantity</th>
-						<th>Description</th>
-						<th>Available</th>
-						<th>Category</th>
-						<th>Actions</th>
+						<th>STT</th>
+						<th>Tên sản phẩm</th>
+						<th>Ảnh</th>
+						<th>Giá</th>
+						<th>Số lượng</th>
+						<th>Ngày tạo</th>
+						<th>Mô tả</th>
+						<th>Có sẵn</th>
+						<th>Danh mục</th>
+						<th>Hành động</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="item in items">
+					<tr ng-repeat="item in pager.items">
+						<td>{{$index + 1}}</td>
 						<td>{{item.name}}</td>
 						<td><img th:src="@{|/images/{{item.image}}|}" width="100px"
 							height="100px"></td>
-						<td>{{item.price | currency}}</td>
+						<td>{{item.price | number}}đ</td>
 						<td>{{item.quantity}}</td>
+						<td>{{item.createdAt | date:'dd/MM/yyyy'}}</td>
 						<td>{{item.description}}</td>
 						<td><span ng-if="item.available" class="badge bg-success">Yes</span>
 							<span ng-if="!item.available" class="badge bg-danger">No</span></td>
 						<td>{{item.category.name}}</td>
 						<td>
-							<button ng-click=edit(item)
-								class="btn btn-primary btn-sm me-2 mb-2">Edit</button>
+							<button ng-click=edit(item) class="btn btn-primary btn-sm mb-2">Edit</button>
 							<button ng-click=delete(item) class="btn btn-danger btn-sm mb-2">Delete</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
+			<div class="text-center">
+				<button ng-click="pager.first()" class="btn btn-outline-danger">
+					<i class="bi bi-arrow-up-circle-fill"></i>
+				</button>
+				<button ng-click="pager.prev()" class="btn btn-outline-primary">
+					<i class="bi bi-arrow-left-circle-fill"></i>
+				</button>
+				<button class="btn btn-outline-success">{{pager.page + 1}}
+					of {{pager.count}}</button>
+				<button ng-click="pager.next()" class="btn btn-outline-primary">
+					<i class="bi bi-arrow-right-circle-fill"></i>
+				</button>
+				<button ng-click="pager.last()" class="btn btn-outline-danger">
+					<i class="bi bi-arrow-down-circle-fill"></i>
+				</button>
+			</div>
 		</div>
 	</div>
 

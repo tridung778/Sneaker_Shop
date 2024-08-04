@@ -18,4 +18,6 @@ public interface OrderService {
     List<Order> findByUsername(String username);
     
     Order findById(UUID id);
+    
+    List<Order> findAll();
 }

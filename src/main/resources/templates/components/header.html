@@ -39,7 +39,7 @@
                         </ul>
                         <ul class="dropdown-menu" th:if="${userInfo}"
                             th:attr="ng-init='loadCart(\''+${userInfo.id}+'\');'">
-							<!--   <li><a class="dropdown-item" href="/admin/addProduct">Quản lý</a></li> -->
+							<li><a class="dropdown-item" href="/admin/addProduct">Quản lý</a></li> 
 							<li><a class="dropdown-item" href="/profile">Cập nhật hồ sơ</a></li>
                             <li><a class="dropdown-item" href="/orderList">Lịch sử mua hàng</a></li>
                             <li><a class="dropdown-item" href="/security/logoff">Đăng xuất</a></li>

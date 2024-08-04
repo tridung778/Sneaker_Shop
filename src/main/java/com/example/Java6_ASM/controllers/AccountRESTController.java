@@ -2,6 +2,7 @@ package com.example.Java6_ASM.controllers;
 
 import com.example.Java6_ASM.SecurityConfig;
 import com.example.Java6_ASM.models.Account;
+import com.example.Java6_ASM.models.Category;
 import com.example.Java6_ASM.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,10 +52,12 @@ public class AccountRESTController {
         }
 
         // Cập nhật thông tin tài khoản
+        existingAccount.setUsername(updatedAccount.getUsername());
         existingAccount.setName(updatedAccount.getName());
         existingAccount.setEmail(updatedAccount.getEmail());
         existingAccount.setPhone(updatedAccount.getPhone());
         existingAccount.setPhoto(updatedAccount.getPhoto());
+        existingAccount.setAddress(updatedAccount.getAddress());
 
         Account savedAccount = service.createAccount(existingAccount);
         return ResponseEntity.ok(savedAccount);
@@ -65,4 +68,14 @@ public class AccountRESTController {
         securityConfig.loginFromOauth2(oauth2);
         return "redirect:/";
     }
+    
+//    @PutMapping("{id}")
+//	public Account update(@PathVariable("id") UUID id, @RequestBody Account account) {
+//		return service.update(account);
+//	}
+
+	@DeleteMapping("{id}")
+	public void delete(@PathVariable("id") UUID id) {
+		service.delete(id);
+	}
 }
