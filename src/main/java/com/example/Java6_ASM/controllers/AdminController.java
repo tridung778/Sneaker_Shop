@@ -49,11 +49,6 @@ public class AdminController {
         model.addAttribute("addProduct", "admin/products.html");
         return "admin-index";
     }
-
-	@RequestMapping("/admin/index")
-	public String admin(Model model) {
-		return "admin-index";
-	}
 	
 	@RequestMapping("/admin/addCategory")
 	public String addCategory(Model model) {
