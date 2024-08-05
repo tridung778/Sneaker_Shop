@@ -8,6 +8,7 @@ import com.example.Java6_ASM.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,13 +25,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void saveProduct(Product product) {
 
-            // Tìm hoặc tạo danh mục
-            String categoryName = product.getCategory().getName();
-            Category category = categoryService.findOrCreateCategory(categoryName);
-            product.setCategory(category);
+        // Tìm hoặc tạo danh mục
+        String categoryName = product.getCategory().getName();
+        Category category = categoryService.findOrCreateCategory(categoryName);
+        product.setCategory(category);
 
-            // Lưu sản phẩm
-            productRepository.save(product);
+        // Lưu sản phẩm
+        productRepository.save(product);
 
     }
 
@@ -71,23 +72,42 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
 
-	@Override
-	public List<Product> findAll() {
-		return productRepository.findAll();
-	}
+    @Override
+    public List<Product> findAll() {
+        List<Product> list = productRepository.findAll();
+        List<Product> availableProducts = new ArrayList<>();
 
-	@Override
-	public Optional<Product> findById(UUID id) {
-		return productRepository.findById(id);
-	}
+        for (Product product : list) {
+            if (product.isAvailable()) {
+                availableProducts.add(product);
+            }
+        }
 
-	@Override
-	public List<Product> findByCategoryId(UUID cid) {
-		return productRepository.findByCategoryId(cid);
-	}
+        return availableProducts;
+    }
+
+    @Override
+    public List<Product> findAllAvailable() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    public Optional<Product> findById(UUID id) {
+        return productRepository.findById(id);
+    }
+
+    @Override
+    public List<Product> findByCategoryId(UUID cid) {
+        return productRepository.findByCategoryId(cid);
+    }
 
     @Override
     public Product findByName(String name) {
         return productRepository.findByName(name);
+    }
+
+    @Override
+    public void updateProduct(Product product) {
+        productRepository.save(product);
     }
 }

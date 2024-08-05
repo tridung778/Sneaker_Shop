@@ -2,12 +2,12 @@
 <div class="container" th:object="${item}">
 	<div class="row mt-4">
 		<div class="col-lg-6 d-flex justify-content-center mt-3 pe-lg-0">
-			<a th:href="@{|/images/*{image}|}"><img
-				th:src="@{|/images/*{image}|}" alt="" width="550px" height="430px"
+			<a th:href="@{image}"><img
+				th:src="*{image}" alt="" width="550px" height="430px"
 				class="border rounded px-5"></a>
 		</div>
 		<div class="col-lg-6 col-sm-12 mt-3 ps-lg-0">
-			<h3 class="fs-3 fw-bold" th:text="*{name}"></h3>
+			<h3 class="fs-3 fw-bold" th:text="${image}"></h3>
 			<div>
 				<h4 class="btn_drop mt-3 fw-bold">
 					<span class="fw-bold text-danger"
@@ -51,7 +51,7 @@
 				<div class="border rounded">
 					<div class="p-2">
 						<a th:href="@{|/${p.id}|}"><img
-							th:src="@{|/images/${p.image}|}" width="100%" height="100%"
+							th:src="${p.image}" width="100%" height="100%"
 							alt=""></a>
 					</div>
 					<div

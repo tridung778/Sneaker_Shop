@@ -162,15 +162,32 @@ public class CartController {
     public void pay(PaymentMethod paymentMethod) {
         List<Cart> cartList = cartService.getAllItemInCart(accountService.getInfoAuth().getId());
         Order order = orderService.createOrder(accountService.getInfoAuth(), paymentMethod, OrderStatus.PENDING, accountService.getInfoAuth().getAddress());
+
         cartList.forEach(cart -> {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setPrice(cart.getPrice());
             orderDetail.setQuantity(cart.getQuantity());
-            orderDetail.setProduct(productService.findById(cart.getProductId()).get());
+            Product product = productService.findById(cart.getProductId()).get();
+
+            orderDetail.setProduct(product);
             orderDetail.setOrder(order);
             orderDetailService.createOrderDetail(orderDetail);
+
+            int newQuantity = product.getQuantity() - cart.getQuantity();
+            if (newQuantity >= 0) {
+                System.out.println(product.getQuantity());
+                if (product.getQuantity() - 1 == 0) {
+                    product.setAvailable(false);
+                }
+                product.setQuantity(newQuantity);
+                productService.updateProduct(product);
+            } else {
+                throw new IllegalArgumentException(product.getName());
+            }
         });
+
         cartService.deleteAllItemInCart();
     }
+
 
 }
