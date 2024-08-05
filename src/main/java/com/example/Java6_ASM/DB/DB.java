@@ -28,7 +28,7 @@ public class DB {
         return args -> {
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            int accountIndex = 100;
+            int accountIndex = 20;
 
             // Thêm user từ file users.json vào database
             String pathToUsers = "src\\main\\java\\com\\example\\Java6_ASM\\DB\\src\\users.json";

@@ -29,4 +29,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         }
         return total;
     }
+
+    @Override
+    public List<OrderDetail> findAll() {
+        return orderDetailRepository.findAll();
+    }
 }

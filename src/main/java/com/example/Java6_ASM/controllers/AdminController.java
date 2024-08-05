@@ -1,19 +1,17 @@
 package com.example.Java6_ASM.controllers;
 
-import com.example.Java6_ASM.models.Product;
 import com.example.Java6_ASM.repositories.ProductRepository;
 import com.example.Java6_ASM.repositories.UserRepository;
+import com.example.Java6_ASM.services.OrderDetailService;
 import com.example.Java6_ASM.services.OrderService;
-
-import java.util.UUID;
-
+import com.example.Java6_ASM.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @Controller
 public class AdminController {
@@ -25,6 +23,12 @@ public class AdminController {
     
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    OrderDetailService orderDetailService;
+
+    @Autowired
+    ProductService productService;
 
 
     @RequestMapping("/admin/addProduct")
@@ -73,6 +77,20 @@ public class AdminController {
 		model.addAttribute("orders", orderService.findAll());
 		return "admin-index";
 	}
+
+    @RequestMapping("/admin/statistical-product")
+    public String statisticalProduct(Model model) {
+        model.addAttribute("addProduct", "admin/statistical-product.html");
+        model.addAttribute("listProduct", productService.findAllAvailable());
+        return "admin-index";
+    }
+
+    @RequestMapping("/admin/statistical-revenue")
+    public String statisticalRevenue(Model model) {
+        model.addAttribute("addProduct", "admin/statistical-revenue.html");
+        model.addAttribute("listOrderDetail", orderDetailService.findAll());
+        return "admin-index";
+    }
 	
 	@RequestMapping("/admin/orderDetail")
 	public String orderDetail(Model model, @RequestParam("id") UUID id) {

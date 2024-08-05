@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+<h1 class="mb-4 text-center fw-bold text-danger mt-5">Danh Sách Hóa Đơn</h1>
+<div class="container mb-4">
+    <div class="card">
+        <table class="table text-center">
+            <thead>
+            <tr>
+                <th>STT</th>
+                <th>Mã Hóa Đơn</th>
+                <th>Người Mua</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Phương Thức Thanh Toán</th>
+                <th>Địa Chỉ</th>
+                <th>Trạng thái đơn hàng</th>
+                <th>Ngày mua</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="orderDetail, state : ${listOrderDetail}">
+                <td th:text="${state.index + 1}"></td>
+                <td th:text="${orderDetail.id}"></td>
+                <td th:text="${orderDetail.order.account.name}"></td>
+                <td th:text="${orderDetail.quantity}"></td>
+                <td th:text="${orderDetail.price}"></td>
+                <td th:text="${orderDetail.order.paymentMethod}"></td>
+                <td th:text="${orderDetail.order.address}"></td>
+                <td th:text="${orderDetail.order.orderStatus}"></td>
+                <td th:text="${#dates.format(orderDetail.order.createdAt, 'dd/MM/yyyy')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -30,7 +30,7 @@
 					<tr ng-repeat="user in pager.items">
 						<td>{{$index + 1}}</td>
 						<td>{{user.username}}</td>
-						<td><img th:src="@{|/images/{{user.photo}}|}" width="100px"
+						<td><img th:src="@{user.photo}" width="100px"
 							height="100px"></td>
 						<td>{{user.name}}</td>
 						<td>{{user.email}}</td>

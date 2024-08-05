@@ -24,9 +24,13 @@ public interface ProductService {
     
     List<Product> findAll();
 
+    List<Product> findAllAvailable();
+
     Optional<Product> findById(UUID id);
 
 	List<Product> findByCategoryId(UUID cid);
 
     Product findByName(String name);
+
+    void updateProduct(Product product);
 }
