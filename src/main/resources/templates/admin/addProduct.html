@@ -35,7 +35,7 @@
 				<input type="hidden" ng-model="form.id">
 				<div class="col-sm-4 text-center">
 					<label for="image"> <img class="rounded object-fit-cover"
-						ng-src="{{form.image}}"
+						ng-src="/images/{{form.image}}"
 						style="max-width: 350px; height: 320px" alt="Chọn ảnh sản phẩm">
 					</label> <input type="file" class="form-control" id="image"
 						onchange="angular.element(this).scope().imageChaged(this.files)"
