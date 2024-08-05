@@ -112,12 +112,13 @@ app.controller('myController', function($scope, $http) {
 			try {
 				const response = await $http.put(`${cartUrl}/payment-cod`);
 				console.log("Response từ API COD:", response.data);
+				$scope.loadCart($scope.accountID);
 				// Thêm logic xử lý cho thanh toán khi nhận hàng
-				/*Swal.fire({
+				Swal.fire({
 					icon: "success",
 					title: "Thành công",
 					text: "Đặt hàng thành công",
-				});*/
+				});
 			} catch (error) {
 				console.error("Lỗi khi gọi API COD:", error);
 			}
@@ -128,6 +129,8 @@ app.controller('myController', function($scope, $http) {
 				text: "Vui lòng chọn phương thức thanh toán",
 			});
 		}
+		
+		
 	};
 
 	$scope.loadAccount = function(accountID) {
