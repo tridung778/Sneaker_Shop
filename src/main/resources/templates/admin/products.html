@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
 <title>Product Management</title>
 <link
@@ -34,8 +34,7 @@
 					<tr ng-repeat="item in pager.items">
 						<td>{{$index + 1}}</td>
 						<td>{{item.name}}</td>
-						<td><img th:src="@{|/images/{{item.image}}|}" width="100px"
-							height="100px"></td>
+						<td><img ng-src="{{item.image}}" width="100px" height="100px"></td>
 						<td>{{item.price | number}}đ</td>
 						<td>{{item.quantity}}</td>
 						<td>{{item.createdAt | date:'dd/MM/yyyy'}}</td>

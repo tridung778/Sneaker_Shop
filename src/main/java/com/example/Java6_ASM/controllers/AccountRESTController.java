@@ -2,7 +2,6 @@ package com.example.Java6_ASM.controllers;
 
 import com.example.Java6_ASM.SecurityConfig;
 import com.example.Java6_ASM.models.Account;
-import com.example.Java6_ASM.models.Category;
 import com.example.Java6_ASM.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +55,7 @@ public class AccountRESTController {
         existingAccount.setName(updatedAccount.getName());
         existingAccount.setEmail(updatedAccount.getEmail());
         existingAccount.setPhone(updatedAccount.getPhone());
-        existingAccount.setPhoto(updatedAccount.getPhoto());
+        existingAccount.setPhoto("/images/"+updatedAccount.getPhoto());
         existingAccount.setAddress(updatedAccount.getAddress());
 
         Account savedAccount = service.createAccount(existingAccount);
