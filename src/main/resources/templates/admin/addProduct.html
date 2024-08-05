@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Product Management</title>
@@ -35,7 +35,7 @@
 				<input type="hidden" ng-model="form.id">
 				<div class="col-sm-4 text-center">
 					<label for="image"> <img class="rounded object-fit-cover"
-						ng-src="{{'/images/' + form.image}}"
+						ng-src="{{form.image}}"
 						style="max-width: 350px; height: 320px" alt="Chọn ảnh sản phẩm">
 					</label> <input type="file" class="form-control" id="image"
 						onchange="angular.element(this).scope().imageChaged(this.files)"
@@ -129,8 +129,7 @@
 					<tr ng-repeat="item in pager.items">
 						<td>{{$index + 1}}</td>
 						<td>{{item.name}}</td>
-						<td><img th:src="@{|/images/{{item.image}}|}" width="100px"
-							height="100px"></td>
+						<td><img ng-src="{{item.image}}" width="100px" height="100px"></td>
 						<td>{{item.price | number}}đ</td>
 						<td>{{item.quantity}}</td>
 						<td>{{item.createdAt | date:'dd/MM/yyyy'}}</td>

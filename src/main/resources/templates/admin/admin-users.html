@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>User Management</title>
@@ -30,8 +30,7 @@
 					<tr ng-repeat="user in pager.items">
 						<td>{{$index + 1}}</td>
 						<td>{{user.username}}</td>
-						<td><img th:src="@{user.photo}" width="100px"
-							height="100px"></td>
+						<td><img ng-src="{{user.image}}" width="100px" height="100px"></td>
 						<td>{{user.name}}</td>
 						<td>{{user.email}}</td>
 						<td>{{user.phone}}</td>

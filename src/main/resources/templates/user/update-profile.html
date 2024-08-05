@@ -5,7 +5,7 @@
 			sơ</h3>
 		<div class="row d-flex justify-content-center align-items-center mb-4">
 			<div class="col-sm-4 text-center">
-				<label for="image"> <img ng-src="{{'/images/' + account.photo}}"
+				<label for="image"> <img ng-src="{{account.photo}}"
 					class="rounded-circle object-fit-cover" style="max-width: 360px; height: 360px" alt="Chọn ảnh đại diện .">
 				</label> <input type="file" id="image" name="photo"
 					onchange="angular.element(this).scope().imageChaged(this.files)" hidden>
