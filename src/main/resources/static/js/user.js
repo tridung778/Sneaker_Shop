@@ -12,7 +12,7 @@ app.controller("ctrl", function($scope, $http) {
 	}
 	$scope.reset = function() {
 		$scope.form = {};
-		$scope.form.photo = 'cloud-upload.jpg';
+		$scope.form.photo = '/images/cloud-upload.jpg';
 		$scope.key = null;
 	}
 
@@ -28,16 +28,17 @@ app.controller("ctrl", function($scope, $http) {
 
 	$scope.create = function() {
 		var item = angular.copy($scope.form);
+		item.role = $scope.form.role;
 		var url = `/rest/accounts`;
 		$http.post(url, item).then(resp => {
 			$scope.items.push(item);
-			$scope.reset();
 			console.log("Success", resp);
 			Swal.fire({
 				icon: "success",
 				title: "Thêm Thành công",
 				text: "Tài khoản mới đã được thêm vào danh sách",
 			});
+			$scope.reset();
 		}).catch(error => {
 			console.log("Error", error);
 		});
@@ -55,6 +56,7 @@ app.controller("ctrl", function($scope, $http) {
 				title: "Cập nhật sản phẩm Thành công",
 				text: "Tài khoản đã được cập nhật",
 			});
+			$scope.reset();
 		}).catch(error => {
 			console.log("Error", error);
 		});

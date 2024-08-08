@@ -32,8 +32,8 @@
 				<input type="hidden" ng-model="form.id">
 				<div class="col-sm-4 text-center">
 					<label for="image"> <img class="rounded object-fit-cover"
-						ng-src="{{'/images/' + form.photo}}"
-						style="max-width: 350px; height: 320px" alt="Chọn ảnh sản phẩm">
+						ng-src="{{form.photo}}" style="max-width: 350px; height: 320px"
+						alt="Chọn ảnh sản phẩm">
 					</label> <input type="file" class="form-control" id="image"
 						onchange="angular.element(this).scope().imageChaged(this.files)"
 						hidden>
@@ -52,7 +52,8 @@
 					<div class="row mb-3">
 						<div class="form-group col-sm-6">
 							<div>Mật khẩu:</div>
-							<input ng-model="form.password" class="form-control" type="password">
+							<input ng-model="form.password" class="form-control"
+								type="password">
 						</div>
 						<div class="form-group col-sm-6">
 							<div>Email:</div>
@@ -66,102 +67,100 @@
 						</div>
 						<div class="form-group col-sm-6">
 							<div>Vai trò:</div>
-							<div class="form-control">
-								<label class="radio-inline"> <input ng-model="form.role"
-									ng-value="true" type="radio"> ADMIN
-								</label> <label class="radio-inline"> <input
-									ng-model="form.role" ng-value="false" type="radio">
-									USER
-								</label>
+							<select ng-model="form.role" class="form-control">
+								<option value>Chọn vai trò</option>
+								<option value="ADMIN">ADMIN</option>
+								<option value="USER">USER</option>
+								<option value="GUEST">GUEST</option>
+							</select>
+						</div>
+						<div class="row mb-3">
+							<div class="form-group col-sm-12">
+								<div>Địa chỉ:</div>
+								<textarea class="form-control" id="description"
+									ng-model="form.address"></textarea>
 							</div>
 						</div>
 					</div>
-					<div class="row mb-3">
-						<div class="form-group col-sm-12">
-							<div>Địa chỉ:</div>
-							<textarea class="form-control" id="description"
-								ng-model="form.address"></textarea>
-						</div>
-					</div>
+				</div>
+				<div class="mt-4 d-flex justify-content-center gap-3">
+					<button ng-click="create()" class="btn btn-outline-primary">
+						<i class="bi bi-plus-circle-fill"></i> Thêm
+					</button>
+					<button ng-click="update()" class="btn btn-outline-success">
+						<i class="bi bi-save-fill"></i> Cập nhật
+					</button>
+					<button ng-click="delete(form.id)" class="btn btn-outline-danger">
+						<i class="bi bi-trash3-fill"></i> Xóa
+					</button>
+					<button ng-click="reset()" class="btn btn-outline-info">
+						<i class="bi bi-arrow-clockwise"></i> Mới
+					</button>
 				</div>
 			</div>
-			<div class="mt-4 d-flex justify-content-center gap-3">
-				<button ng-click="create()" class="btn btn-outline-primary">
-					<i class="bi bi-plus-circle-fill"></i> Thêm
-				</button>
-				<button ng-click="update()" class="btn btn-outline-success">
-					<i class="bi bi-save-fill"></i> Cập nhật
-				</button>
-				<button ng-click="delete(form.id)" class="btn btn-outline-danger">
-					<i class="bi bi-trash3-fill"></i> Xóa
-				</button>
-				<button ng-click="reset()" class="btn btn-outline-info">
-					<i class="bi bi-arrow-clockwise"></i> Mới
-				</button>
+
+			<!-- User List Table -->
+			<div class="table-responsive">
+				<table class="table table-bordered mt-3 text-center">
+					<thead>
+						<tr>
+							<th>STT</th>
+							<th>Tên đăng nhập</th>
+							<th>Ảnh</th>
+							<th>Họ và tên</th>
+							<th>Email</th>
+							<th>Số điện thoại</th>
+							<th>Vai trò</th>
+							<th>Địa chỉ</th>
+							<th>Hành động</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="user in pager.items">
+							<td>{{$index + 1}}</td>
+							<td>{{user.username}}</td>
+							<td><img ng-src="{{user.photo}}" class="object-fit-cover"
+								width="100px" height="100px"></td>
+							<td>{{user.name}}</td>
+							<td>{{user.email}}</td>
+							<td>{{user.phone}}</td>
+							<td>{{user.role}}</td>
+							<td>{{user.address}}</td>
+							<td>
+								<button ng-click=edit(user.id)
+									class="btn btn-primary btn-sm mb-2">Edit</button>
+								<button ng-click=delete(user.id)
+									class="btn btn-danger btn-sm mb-2">Delete</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="text-center">
+					<button ng-click="pager.first()" class="btn btn-outline-danger">
+						<i class="bi bi-arrow-up-circle-fill"></i>
+					</button>
+					<button ng-click="pager.prev()" class="btn btn-outline-primary">
+						<i class="bi bi-arrow-left-circle-fill"></i>
+					</button>
+					<button class="btn btn-outline-success">{{pager.page + 1}}
+						of {{pager.count}}</button>
+					<button ng-click="pager.next()" class="btn btn-outline-primary">
+						<i class="bi bi-arrow-right-circle-fill"></i>
+					</button>
+					<button ng-click="pager.last()" class="btn btn-outline-danger">
+						<i class="bi bi-arrow-down-circle-fill"></i>
+					</button>
+				</div>
 			</div>
 		</div>
 
-		<!-- User List Table -->
-		<div class="table-responsive">
-			<table class="table table-bordered mt-3 text-center">
-				<thead>
-					<tr>
-						<th>STT</th>
-						<th>Tên đăng nhập</th>
-						<th>Ảnh</th>
-						<th>Họ và tên</th>
-						<th>Email</th>
-						<th>Số điện thoại</th>
-						<th>Vai trò</th>
-						<th>Địa chỉ</th>
-						<th>Hành động</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="user in pager.items">
-						<td>{{$index + 1}}</td>
-						<td>{{user.username}}</td>
-						<td><img ng-src="{{user.photo}}" width="100px" height="100px"></td>
-						<td>{{user.name}}</td>
-						<td>{{user.email}}</td>
-						<td>{{user.phone}}</td>
-						<td>{{user.role}}</td>
-						<td>{{user.address}}</td>
-						<td>
-							<button ng-click=edit(user.id)
-								class="btn btn-primary btn-sm mb-2">Edit</button>
-							<button ng-click=delete(user.id)
-								class="btn btn-danger btn-sm mb-2">Delete</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="text-center">
-				<button ng-click="pager.first()" class="btn btn-outline-danger">
-					<i class="bi bi-arrow-up-circle-fill"></i>
-				</button>
-				<button ng-click="pager.prev()" class="btn btn-outline-primary">
-					<i class="bi bi-arrow-left-circle-fill"></i>
-				</button>
-				<button class="btn btn-outline-success">{{pager.page + 1}}
-					of {{pager.count}}</button>
-				<button ng-click="pager.next()" class="btn btn-outline-primary">
-					<i class="bi bi-arrow-right-circle-fill"></i>
-				</button>
-				<button ng-click="pager.last()" class="btn btn-outline-danger">
-					<i class="bi bi-arrow-down-circle-fill"></i>
-				</button>
-			</div>
-		</div>
-	</div>
-
-	<script src="../js/user.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+		<script src="../js/user.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </body>
 </html>

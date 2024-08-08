@@ -34,12 +34,14 @@ public class ProductController {
 
 	@PostMapping()
 	public Product post(@RequestBody Product product) {
+		product.setImage("/images/" + product.getImage());
 		dao.save(product);
 		return product;
 	}
 
 	@PutMapping("{name}")
 	public Product put(@PathVariable("name") String name, @RequestBody Product product) {
+		product.setImage("/images/" + product.getImage());
 		dao.save(product);
 		return product;
 	}

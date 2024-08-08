@@ -57,6 +57,7 @@ public class AccountRESTController {
         existingAccount.setPhone(updatedAccount.getPhone());
         existingAccount.setPhoto("/images/"+updatedAccount.getPhoto());
         existingAccount.setAddress(updatedAccount.getAddress());
+        existingAccount.setRole(updatedAccount.getRole());
 
         Account savedAccount = service.createAccount(existingAccount);
         return ResponseEntity.ok(savedAccount);
