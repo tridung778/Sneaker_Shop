@@ -61,4 +61,15 @@ public class OrderServiceImpl implements OrderService {
         }
         return total;
     }
+
+    public void updateOrderStatus(UUID orderId, OrderStatus newStatus) {
+        // Tìm đơn hàng theo ID
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+
+        // Cập nhật trạng thái
+        order.setOrderStatus(newStatus);
+
+        // Lưu lại vào cơ sở dữ liệu
+        orderRepository.save(order);
+    }
 }
