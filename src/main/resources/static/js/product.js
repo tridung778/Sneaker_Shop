@@ -17,7 +17,7 @@ app.controller("ctrl", function($scope, $http) {
 	$scope.reset = function() {
 		$scope.form = {
 			created_at: new Date(),
-			image: 'cloud-upload.jpg',
+			image: '/images/cloud-upload.jpg',
 			available: true
 		};
 		$scope.key = null;
