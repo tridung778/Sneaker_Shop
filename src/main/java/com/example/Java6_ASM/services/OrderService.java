@@ -21,4 +21,6 @@ public interface OrderService {
     List<Order> findAll();
 
     int totalOrder();
+
+    void updateOrderStatus(UUID id, OrderStatus orderStatus);
 }

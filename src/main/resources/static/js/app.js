@@ -65,6 +65,7 @@ app.controller('myController', function($scope, $http) {
 	}
 
 	$scope.payment = async function(paymentMethod) {
+		console.log(paymentMethod)
 
 		if ($scope.listItem.length === 0) {
 			Swal.fire({

@@ -1,5 +1,6 @@
 package com.example.Java6_ASM.controllers;
 
+import com.example.Java6_ASM.enums.OrderStatus;
 import com.example.Java6_ASM.repositories.ProductRepository;
 import com.example.Java6_ASM.repositories.UserRepository;
 import com.example.Java6_ASM.services.OrderDetailService;
@@ -20,7 +21,7 @@ public class AdminController {
 
     @Autowired
     private UserRepository userRepo;
-    
+
     @Autowired
     OrderService orderService;
 
@@ -36,11 +37,13 @@ public class AdminController {
         model.addAttribute("addProduct", "admin/addProduct.html");
         return "admin-index";
     }
+
     @RequestMapping("/admin/addUser")
     public String addUser(Model model) {
         model.addAttribute("addProduct", "admin/user-form.html");
         return "admin-index";
     }
+
     @RequestMapping("/admin/account")
     public String account(Model model) {
         model.addAttribute("addProduct", "admin/admin-users.html");
@@ -53,25 +56,25 @@ public class AdminController {
         model.addAttribute("addProduct", "admin/products.html");
         return "admin-index";
     }
-	
-	@RequestMapping("/admin/addCategory")
-	public String addCategory(Model model) {
-		model.addAttribute("addProduct", "admin/admin-categories.html");
-		return "admin-index";
-	}
-	
-	@RequestMapping("/admin/category")
-	public String category(Model model) {
-		model.addAttribute("addProduct", "admin/categories.html");
-		return "admin-index";
-	}
-	
-	@RequestMapping("/admin/order")
-	public String order(Model model) {
-		model.addAttribute("addProduct", "admin/orders.html");
-		model.addAttribute("orders", orderService.findAll());
-		return "admin-index";
-	}
+
+    @RequestMapping("/admin/addCategory")
+    public String addCategory(Model model) {
+        model.addAttribute("addProduct", "admin/admin-categories.html");
+        return "admin-index";
+    }
+
+    @RequestMapping("/admin/category")
+    public String category(Model model) {
+        model.addAttribute("addProduct", "admin/categories.html");
+        return "admin-index";
+    }
+
+    @RequestMapping("/admin/order")
+    public String order(Model model) {
+        model.addAttribute("addProduct", "admin/orders.html");
+        model.addAttribute("orders", orderService.findAll());
+        return "admin-index";
+    }
 
     @RequestMapping("/admin/statistical-product")
     public String statisticalProduct(Model model) {
@@ -86,11 +89,18 @@ public class AdminController {
         model.addAttribute("listOrderDetail", orderDetailService.findAll());
         return "admin-index";
     }
-	
-	@RequestMapping("/admin/orderDetail")
-	public String orderDetail(Model model, @RequestParam("id") UUID id) {
-		model.addAttribute("addProduct", "admin/orderDetail.html");
-		 model.addAttribute("order", orderService.findById(id));
-		return "admin-index";
-	}
+
+    @RequestMapping("/admin/orderDetail")
+    public String orderDetail(Model model, @RequestParam("id") UUID id) {
+        model.addAttribute("addProduct", "admin/orderDetail.html");
+        model.addAttribute("order", orderService.findById(id));
+        return "admin-index";
+    }
+
+    @RequestMapping(value = "/admin/updateOrderStatus")
+    public String updateOrderStatus(@RequestParam("id") UUID orderId,
+                                    @RequestParam("orderStatus") OrderStatus orderStatus) {
+        orderService.updateOrderStatus(orderId, orderStatus);
+        return "redirect:/admin/orderDetail?id=" + orderId;
+    }
 }
