@@ -1,16 +1,17 @@
 package com.example.Java6_ASM.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.util.UUID;
 
 @MappedSuperclass
 @Data
 public class BaseModel {
     @Id
+    @Type(type = "uuid-char")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 }
