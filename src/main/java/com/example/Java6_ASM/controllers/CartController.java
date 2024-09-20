@@ -2,13 +2,10 @@ package com.example.Java6_ASM.controllers;
 
 import com.example.Java6_ASM.DTO.StripeRequestDTO;
 import com.example.Java6_ASM.DTO.StripeResponseDTO;
-import com.example.Java6_ASM.models.Account;
-import com.example.Java6_ASM.models.Cart;
-import com.example.Java6_ASM.models.Product;
-import com.example.Java6_ASM.services.AccountService;
-import com.example.Java6_ASM.services.CartService;
-import com.example.Java6_ASM.services.PaypalService;
-import com.example.Java6_ASM.services.ProductService;
+import com.example.Java6_ASM.enums.OrderStatus;
+import com.example.Java6_ASM.enums.PaymentMethod;
+import com.example.Java6_ASM.models.*;
+import com.example.Java6_ASM.services.*;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
@@ -20,17 +17,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/cart")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class CartController {
 
     @Autowired
@@ -41,6 +40,12 @@ public class CartController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private OrderDetailService orderDetailService;
 
     @Value("${stripe.api.publicKey}")
     private String publicKey;
@@ -78,10 +83,17 @@ public class CartController {
         item.setThumbnail(product.getImage());
         item.setCategory(product.getCategory().getName());
         item.setAccount(account);
+        item.setProductId(product.getId());
         Cart cart = cartService.addItemToCart(item);
         return ResponseEntity.ok(cart);
     }
 
+    // Payment
+    @PutMapping("/payment-cod")
+    public ResponseEntity<String> payment() {
+        pay(PaymentMethod.COD);
+        return ResponseEntity.ok().body("Payment success");
+    }
 
     //Stripe payment
     @PostMapping("/create-payment-intent")
@@ -103,10 +115,12 @@ public class CartController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    //    Paypal payment
-// sb-6ctgf31057516@personal.example.com
-    @RequestMapping("/payment/paypal")
-    public RedirectView payment(@RequestParam("totalPrice") double totalPrice, @RequestParam("userName") String userName) {
+    // Paypal payment
+    // sb-fo7f331992187@personal.example.com
+    // r&o}V0Z>
+    @RequestMapping("/payment-paypal")
+    public Map<String, String> payment(@RequestParam("totalPrice") double totalPrice, @RequestParam("userName") String userName) {
+        Map<String, String> response = new HashMap<>();
         try {
             String cancelUrl = "http://localhost:8080/payment/paypal/cancel";
             String successUrl = "http://localhost:8080/payment/paypal/success";
@@ -115,40 +129,23 @@ public class CartController {
                     "USD",
                     "PAYPAL",
                     "sale",
-                    userName + "Thanh toán",
+                    userName + " Thanh toán",
                     cancelUrl,
                     successUrl
             );
-
+            pay(PaymentMethod.PAYPAL);
             for (Links links : payment.getLinks()) {
                 if (links.getRel().equals("approval_url")) {
-                    return new RedirectView(links.getHref());
+                    response.put("redirectUrl", links.getHref());
+                    return response;
                 }
             }
         } catch (PayPalRESTException e) {
             throw new RuntimeException(e);
         }
-        return new RedirectView("payment/paypal/error");
+        response.put("redirectUrl", "payment/paypal/error");
+        return response;
     }
-
-    @GetMapping("/payment/paypal/success")
-    public String success(Model model,
-                          @RequestParam("paymentId") String paymentId,
-                          @RequestParam("PayerID") String payerId
-    ) {
-        try {
-            Payment payment = paypalService.executePayment(paymentId, payerId);
-            if (payment.getState().equals("approved")) {
-                model.addAttribute("router", "payment.jsp");
-                return "index";
-            }
-        } catch (PayPalRESTException e) {
-            throw new RuntimeException(e);
-        }
-        model.addAttribute("router", "payment.jsp");
-        return "index";
-    }
-
 
     @GetMapping("/payment/paypal/cancel")
     @ResponseBody
@@ -161,5 +158,36 @@ public class CartController {
     public String error() {
         return "error";
     }
+
+    public void pay(PaymentMethod paymentMethod) {
+        List<Cart> cartList = cartService.getAllItemInCart(accountService.getInfoAuth().getId());
+        Order order = orderService.createOrder(accountService.getInfoAuth(), paymentMethod, OrderStatus.PENDING, accountService.getInfoAuth().getAddress());
+
+        cartList.forEach(cart -> {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setPrice(cart.getPrice());
+            orderDetail.setQuantity(cart.getQuantity());
+            Product product = productService.findById(cart.getProductId()).get();
+
+            orderDetail.setProduct(product);
+            orderDetail.setOrder(order);
+            orderDetailService.createOrderDetail(orderDetail);
+
+            int newQuantity = product.getQuantity() - cart.getQuantity();
+            if (newQuantity >= 0) {
+                System.out.println(product.getQuantity());
+                if (product.getQuantity() - 1 == 0) {
+                    product.setAvailable(false);
+                }
+                product.setQuantity(newQuantity);
+                productService.updateProduct(product);
+            } else {
+                throw new IllegalArgumentException(product.getName());
+            }
+        });
+
+        cartService.deleteAllItemInCart();
+    }
+
 
 }

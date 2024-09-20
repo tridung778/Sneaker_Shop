@@ -1,0 +1,76 @@
+<form action="" class="container my-4"
+      th:attr="ng-init='loadAccount(\''+${userInfo.id}+'\');'">
+    <div class="row">
+        <div class="col-7 pt-4">
+            <h4 class="mb-3 fw-bold">THÔNG TIN THANH TOÁN</h4>
+            <input type="text" class="form-control"
+                   ng-model="account.username" hidden>
+            <div class="mb-2">
+                <label class="fw-medium mb-1">Ngày đặt *</label> <input type="text"
+                                                                        class="form-control"
+                                                                        th:value="*{#dates.format(createdAt, 'dd/MM/yyyy')}"
+                                                                        readonly>
+            </div>
+            <div class="mb-2">
+                <label class="fw-medium mb-1">Họ và tên *</label> <input type="text"
+                                                                         class="form-control" ng-model="account.name"
+                                                                         required>
+            </div>
+            <div class="mb-2">
+                <label class="fw-medium mb-1">Số điện thoại *</label> <input
+                    type="text" class="form-control" ng-model="account.phone"
+                    required>
+            </div>
+            <div class="mb-2">
+                <label class="fw-medium mb-1">Địa chỉ *</label>
+                <textarea class="form-control" ng-model="account.address"
+                          required></textarea>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-outline-danger mt-3 fs-5 px-4"
+                        ng-click="updateAccount()">Thay đổi thông tin
+                </button>
+            </div>
+        </div>
+        <div class="col-5 border border-3 border-danger p-4">
+            <h4 class="mb-3 fw-bold">ĐƠN HÀNG CỦA BẠN</h4>
+            <div
+                    class="d-flex justify-content-between border-bottom border-3 mb-2">
+                <h5>SẢN PHẨM</h5>
+                <h5>TỔNG</h5>
+            </div>
+            <div ng-repeat="item in listItem"
+                 class="d-flex justify-content-between border-bottom py-2">
+                <span>{{item.name}} <b>× {{item.quantity}}</b></span> <span
+                    class="fw-bold">{{item.price | number}}₫</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom py-2">
+                <span class="fw-bold">Tổng số lượng:</span> <span class="fw-bold">{{totalQuantity}}</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom py-2">
+                <span class="fw-bold">Tổng giá:</span> <span class="fw-bold">{{totalPrice
+					| number}}₫</span>
+            </div>
+            <!--			<div class="py-2">-->
+            <!--				<select ng-model="paymentMethod"-->
+            <!--					class="form-control btn btn-outline-danger">-->
+            <!--					<option value="">Chọn phương thức thanh toán</option>-->
+            <!--					<option value="cod">Thanh toán khi nhận hàng</option>-->
+            <!--					<option value="paypal">Thanh toán PayPal</option>-->
+            <!--				</select>-->
+            <!--			</div>-->
+            <div class="d-flex justify-content-center">
+                <div class="text-center">
+                    <button class="btn btn-outline-success mt-3 fs-5 px-4"
+                            ng-init="cod = 'cod'" ng-click="payment(cod)">Đặt hàng COD
+                    </button>
+                </div>
+                <div class="text-center">
+                    <a class="btn btn-outline-primary mt-3 fs-5 px-4 ms-5"
+                       ng-init="paypal = 'paypal'" ng-click="payment(paypal)">Đặt hàng Paypal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

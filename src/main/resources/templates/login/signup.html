@@ -23,14 +23,20 @@
 	src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
-<!-- Nhúng fontawesome -->
-<!--    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">-->
 <!-- Css -->
 <link rel="stylesheet" href="./css/style.css">
+<!-- Angular js  -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<!-- Nhúng SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <title>Trang chủ</title>
 </head>
 
-<body>
+<body ng-app="app" ng-controller="ctrl">
 	<header class="py-0 py-lg-3">
 		<div class="container">
 			<div class="row">
@@ -61,32 +67,36 @@
 					<form action="" method="post">
 						<div class="input-group">
 							<span class="input-group-text"><i
-								class="bi bi-person-fill"></i></span> <input type="text"
-								class="form-control" placeholder="Họ và tên" />
+								class="bi bi-person-fill"></i></span> <input ng-model="form.name"
+								type="text" class="form-control" placeholder="Họ và tên" />
 						</div>
 						<div class="input-group mt-3 position-relative">
 							<span class="input-group-text"><i
-								class="bi bi-envelope-fill"></i></span> <input type="email"
-								class="form-control" placeholder="Email" />
+								class="bi bi-envelope-fill"></i></span> <input ng-model="form.email"
+								type="email" class="form-control" placeholder="Email" />
 						</div>
 						<div class="input-group mt-3 position-relative">
 							<span class="input-group-text"><i
 								class="bi bi-person-fill"></i></span> <input type="text"
-								class="form-control" placeholder="Tên đăng nhập" />
+								class="form-control" placeholder="Tên đăng nhập"
+								ng-model="form.username" />
 						</div>
 						<div class="input-group mt-3 position-relative">
 							<span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
 							<input type="password" class="form-control"
-								placeholder="Mật khẩu" />
+								placeholder="Mật khẩu" ng-model="form.password" />
 						</div>
 						<div class="input-group mt-3 position-relative">
 							<span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
 							<input type="password" class="form-control"
-								placeholder="Xác nhận mật khẩu" />
+								placeholder="Xác nhận mật khẩu" ng-model="form.confirmPassword" />
 						</div>
+						<span class="text-danger"
+							ng-show="form.password !== form.confirmPassword && form.confirmPassword !== ''">Xác
+							nhận mật khẩu chưa trùng khớp</span> <br>
 						<div class="form-group my-3">
-							<button type="submit" class="form-control btn btn-outline-light">Đăng
-								Ký</button>
+							<button type="submit" class="form-control btn btn-outline-light"
+								ng-click="create()">Đăng Ký</button>
 						</div>
 					</form>
 					<p class="w-100 text-center text-secondary mb-3">-- Hoặc Đăng
@@ -118,5 +128,5 @@
 	<!-- Footer -->
 	<footer th:insert="~{components/footer.html}"></footer>
 </body>
-
+<script src="/js/account.js"></script>
 </html>

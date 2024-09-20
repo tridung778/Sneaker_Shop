@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Management</title>
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+<body ng-app="app" ng-controller="ctrl">
+	<div class="container mt-5">
+		<h1 class="mb-4 text-center fw-bold text-danger">Danh Sách Tài
+			Khoản</h1>
+		<div class="table-responsive">
+			<table class="table table-bordered mt-3 text-center">
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Tên đăng nhập</th>
+						<th>Ảnh</th>
+						<th>Họ và tên</th>
+						<th>Email</th>
+						<th>Số điện thoại</th>
+						<th>Vai trò</th>
+						<th>Địa chỉ</th>
+						<th>Hành động</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="user in pager.items">
+						<td>{{$index + 1}}</td>
+						<td>{{user.username}}</td>
+						<td><img ng-src="{{user.image}}" width="100px" height="100px"></td>
+						<td>{{user.name}}</td>
+						<td>{{user.email}}</td>
+						<td>{{user.phone}}</td>
+						<td>{{user.role}}</td>
+						<td>{{user.address}}</td>
+						<td>
+							<button ng-click=edit(user.id)
+								class="btn btn-primary btn-sm mb-2">Edit</button>
+							<button ng-click=delete(user.id)
+								class="btn btn-danger btn-sm mb-2">Delete</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="text-center">
+				<button ng-click="pager.first()" class="btn btn-outline-danger">
+					<i class="bi bi-arrow-up-circle-fill"></i>
+				</button>
+				<button ng-click="pager.prev()" class="btn btn-outline-primary">
+					<i class="bi bi-arrow-left-circle-fill"></i>
+				</button>
+				<button class="btn btn-outline-success">{{pager.page + 1}}
+					of {{pager.count}}</button>
+				<button ng-click="pager.next()" class="btn btn-outline-primary">
+					<i class="bi bi-arrow-right-circle-fill"></i>
+				</button>
+				<button ng-click="pager.last()" class="btn btn-outline-danger">
+					<i class="bi bi-arrow-down-circle-fill"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

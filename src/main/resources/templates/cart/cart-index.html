@@ -1,62 +1,83 @@
-<h3 class="fs-3 text-center text-danger fw-bold my-4">Giỏ hàng</h3>
-<div class="row mb-4">
-	<div class="form-group col-lg-9 col-12 pe-3 border-end">
-		<table class="table m-0">
-			<thead class="text-center align-middle fw-bold">
-				<tr class="m-0">
-					<td class="p-0"></td>
-					<td class="p-0"></td>
-					<td class="p-0"></td>
-					<td class="p-0"></td>
-				</tr>
-				<tr>
-					<th class="w-50">Sản Phẩm</th>
-					<th>Số Lượng</th>
-					<th>Giá</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody class="text-center align-middle fw-bold">
-				<tr>
-					<td>
-						<div class="d-flex align-items-center justify-content-center">
-							<p class="mx-2">Air Jordan 1 Retro High Og ‘Shadow 2.0’</p>
-							<a href="./images/sp1.webp" class="me-3"> <img
-								src="./images/sp1.webp" alt="" class="object-fit-cover"
-								style="max-width: 200px;">
-							</a>
-						</div>
-					</td>
-					<td>
-						<div>
-							<input value="1" class="form-control text-center" type="number">
-						</div>
-					</td>
-					<td><span>1,289,000₫</span></td>
-					<td><a
-						class="text-decoration-none text-dark d-flex gap-1 justify-content-center remove"
-						href=""> <i class="bi bi-trash3"></i> <span>Xóa</span>
-					</a></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="col-lg-3 col-12">
-		<div class="border-top border-bottom p-4">
-			<div class="flex-column ">
-				<div class="d-flex justify-content-between border-bottom pb-2">
-					<h5 class="fs-6 fw-bold text-danger">Tổng giá:</h5>
-					<h5 class="fs-6 fw-bold text-danger">1,289,000₫</h5>
+<div ng-if="listItem.length > 0">
+	<h3 class="fs-3 text-center text-danger fw-bold my-4"
+		th:attr="ng-init='loadCart(\''+${userInfo.id}+'\');'">Giỏ hàng</h3>
+	<div class="row mb-4">
+		<div class="form-group col-lg-9 col-12 pe-3 border-end">
+			<table class="table m-0">
+				<thead class="text-center align-middle fw-bold">
+					<tr class="m-0">
+						<td class="p-0"></td>
+						<td class="p-0"></td>
+						<td class="p-0"></td>
+						<td class="p-0"></td>
+						<td class="p-0"></td>
+					</tr>
+					<tr>
+						<th class="w-50">Sản Phẩm</th>
+						<th>Số Lượng</th>
+						<th>Giá</th>
+						<th>Tổng giá</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody class="text-center align-middle fw-bold">
+					<tr ng-repeat="item in listItem">
+						<td>
+							<div class="d-flex align-items-center justify-content-between">
+								<p class="mx-2">{{item.name}}</p>
+								<a ng-href="{{item.thumbnail}}" class="me-3"> <img
+									ng-src="{{item.thumbnail}}" alt=""
+									class="object-fit-cover" style="max-width: 200px;">
+								</a>
+							</div>
+						</td>
+						<td>
+							<div>
+								<div class="input-group input-number-group">
+									<div class="input-group-button" ng-click="updateItem(item.id)">
+										<span class="input-number-decrement">-</span>
+									</div>
+									<input class="input-number" type="number"
+										ng-value="{{item.quantity}}">
+									<div class="input-group-button"
+										ng-click="addItem(item.productId)">
+										<span class="input-number-increment">+</span>
+									</div>
+								</div>
+							</div>
+						</td>
+						<td><span>{{item.price | number}}₫</span></td>
+						<td><span>{{item.price * item.quantity | number}}₫</span></td>
+						<td><a
+							class="text-decoration-none text-dark d-flex gap-1 justify-content-center remove"
+							ng-click="deleteItem(item.id)"> <i class="bi bi-trash3"></i>
+								<span>Xóa</span>
+						</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-lg-3 col-12">
+			<div class="border-top border-bottom p-4">
+				<div class="flex-column ">
+					<div class="d-flex justify-content-between border-bottom pb-2">
+						<h5 class="fs-6 fw-bold text-danger">Thành tiền:</h5>
+						<h5 class="fs-6 fw-bold text-danger">{{totalPrice | number}}₫</h5>
+					</div>
+					<div class="d-flex justify-content-between border-bottom pt-3 pb-2">
+						<h5 class="fs-6 fw-bold text-danger">Tổng số lượng:</h5>
+						<h5 class="fs-6 fw-bold text-danger">{{totalQuantity}}</h5>
+					</div>
 				</div>
-				<div class="d-flex justify-content-between border-bottom pt-3 pb-2">
-					<h5 class="fs-6 fw-bold text-danger">Tổng số lượng:</h5>
-					<h5 class="fs-6 fw-bold text-danger">1</h5>
+				<div class="pt-3 text-center">
+					<a type="submit" class="py-2 px-4 rounded btn btn-outline-danger"
+						href="/purchase">Thanh Toán</a>
 				</div>
-			</div>
-			<div class="pt-3 text-center">
-				<button type="submit" class="py-2 px-4 rounded btn btn-outline-danger">Thanh
-					Toán</button>
 			</div>
 		</div>
 	</div>
+</div>
+<div class="text-center py-5" ng-if="listItem.length <= 0">
+	<h2 class="text-danger fw-bold mb-4">Chưa có sản phẩm nào trong giỏ hàng</h2>
+	<a class="btn btn-outline-danger fs-4" href="/">Quay lại trang chủ</a>
 </div>

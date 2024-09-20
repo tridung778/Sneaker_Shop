@@ -7,11 +7,30 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductService {
+    void saveAllProduct(List<Product> products);
+    List<Product> finAll();
+
+    Product finById(UUID id);
+
+    List<Product> findByCategoryId(String cid);
+
+    Product create(Product product);
+
+    Product update(Product product);
+
+    void delete(UUID id);
+
     void saveProduct(Product product);
     
     List<Product> findAll();
 
+    List<Product> findAllAvailable();
+
     Optional<Product> findById(UUID id);
 
 	List<Product> findByCategoryId(UUID cid);
+
+    Product findByName(String name);
+
+    void updateProduct(Product product);
 }

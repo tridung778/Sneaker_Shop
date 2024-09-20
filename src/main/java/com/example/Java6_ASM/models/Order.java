@@ -3,11 +3,13 @@ package com.example.Java6_ASM.models;
 import com.example.Java6_ASM.enums.OrderStatus;
 import com.example.Java6_ASM.enums.PaymentMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.*;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +20,8 @@ import java.util.List;
 @Table(name = "orders")
 public class Order extends BaseModel {
 
+    private String address;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "created_at")
     Date createdAt = new Date();
@@ -26,13 +30,13 @@ public class Order extends BaseModel {
     @JoinColumn(name = "account_id")
     Account account;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "order")
-    List<OrderDetail> orderDetails;
-
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
+    
+    @JsonIgnore
+	@OneToMany(mappedBy = "order")
+	List<OrderDetail> orderDetails;
 }
